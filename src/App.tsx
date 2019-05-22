@@ -5,6 +5,7 @@ import styled from "styled-components"
 import Projects from "./components/Projects"
 import Stack from "./components/Stack"
 import Body from "./components/Body"
+import Background from "./components/Background"
 import Footer from "./components/Footer"
 import { IProject, IStack, IContact, IContent } from './types'
 
@@ -69,6 +70,7 @@ class App extends Component {
 
           return (
             <Main>
+              <Background />
               <Body data={data.contents.find(c => c.type === 'intro')!.content} />
               <Projects title="Featured Work" data={data.projects} />
               <Stack data={data.techStacks} />

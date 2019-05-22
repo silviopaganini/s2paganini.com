@@ -4,6 +4,10 @@ import Markdown from 'react-markdown'
 export default styled(Markdown)`
   padding-left: 5px;
 
+  h1 {
+    font-size: 2rem;
+  }
+
   ul {
     margin: 0;
     padding: 0;
