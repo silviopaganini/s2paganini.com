@@ -27,7 +27,8 @@
     "eject": "react-scripts eject",
     "cp": "npx crcf",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "deploy": "aws s3 sync --profile fluuuid build s3://fluuu.id/s2paganini --exclude \"*.git/*\" --exclude \"*/node_modules/*\" --exclude \"npm-debug.log\" --exclude \"*/jspm_packages/*\" --delete"
   },
   "eslintConfig": {
     "extends": "react-app"
