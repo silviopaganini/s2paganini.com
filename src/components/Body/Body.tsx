@@ -2,13 +2,14 @@ import React, { Fragment } from 'react'
 import Markdown from '../../ui/Markdown'
 import Wrapper from '../../ui/Wrapper'
 import Title from '../../ui/Title'
+import { Prop } from '../../types'
 
 interface Props {
   data?: string
-  title?: String
+  title?: string
 }
 
-const Body: React.SFC<Props> = ({ data, title }) => (
+const Body: React.SFC<Prop<Props>> = ({ data, title }) => (
   <Fragment>
     {title && (
       <Wrapper>

@@ -14,10 +14,6 @@ import {
 import frag from './shaders/material-frag.glsl'
 import vert from './shaders/material-vert.glsl'
 
-console.log('====================================')
-console.log(vert)
-console.log('====================================')
-
 const Wrapper = styled.div`
   position: fixed;
   top: 0;
@@ -83,7 +79,7 @@ class Background extends Component {
   addObjects = () => {
     this.material = new ShaderMaterial({
       uniforms: {
-        time: { type: 'f', value: 0 },
+        uTime: { type: 'f', value: 0 },
         ambient: { type: 'c', value: new Color(0x171717) },
         specular: { type: 'c', value: new Color(0x030303) },
         color: { type: 'c', value: new Color(0xcccccc) },
@@ -97,7 +93,7 @@ class Background extends Component {
       wireframe: true,
     })
 
-    this.form = new IcosahedronBufferGeometry(120, 4)
+    this.form = new IcosahedronBufferGeometry(90, 4)
     this.mesh = new Mesh(this.form, this.material)
 
     this.scene.add(this.mesh)
@@ -112,7 +108,7 @@ class Background extends Component {
     // this.mapTexture.offset.y += 10.0115;
     // this.mapTexture.needsUpdate = true;
 
-    this.material.uniforms.time.value = el
+    this.material.uniforms.uTime.value = el
     // this.gammaShader.uniforms.time.value = el
 
     // if(!this.md.mobile())

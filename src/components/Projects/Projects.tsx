@@ -14,7 +14,7 @@ const Projects: React.SFC<IProjects> = ({ title, data }) => (
   <Wrapper>
     <Title>{title}</Title>
     <List>
-      {data.map(p => (
+      {data && data.map(p => (
         <Project
           key={p.id}
           src={p.thumb.url}

@@ -13,13 +13,14 @@ const StacksWrapper = styled.div`
 const StackWrapper = styled.div`
   justify-content: flex-start;
   margin-right: 40px;
+  margin-bottom: 40px;
 `
 
 const Stack: React.SFC<IStacks> = ({ data }) => (
   <Wrapper>
     <Title>Tech Stack</Title>
     <StacksWrapper>
-      {data.map(d => (
+      {data && data.map(d => (
         <StackWrapper key={d.title}>
           <SubTitle>{d.title}</SubTitle>
           <Markdown source={d.stack} />

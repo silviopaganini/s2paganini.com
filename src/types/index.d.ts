@@ -1,22 +1,25 @@
-export interface IContent {
+export type Nil = null | undefined;
+export type Prop<T> = T | Nil;
+
+export type IContent = {
   type: string,
   content: string,
 }
 
-export interface IVideo {
+export type IVideo = {
   id: string,
   url: string,
   mimeType: string,
   __typename: string,
 }
 
-export interface IImage {
+export type IImage = {
   url: string,
   id: string,
   __typename: string,
 }
 
-export interface IProject {
+export type IProject = {
   id: string,
   link?: string,
   video?: IVideo,
@@ -25,25 +28,25 @@ export interface IProject {
   __typename: string,
 }
 
-export interface IProjects {
+export type IProjects = {
   title: string,
-  data: IProject[],
+  data: Prop<IProject[]>,
 }
 
-export interface IStack {
+export type IStack = {
   title: string,
   stack: strink,
 }
 
-export interface IStacks {
-  data: IStack[],
+export type IStacks = {
+  data: Prop<IStack[]>,
 }
 
-export interface IContact {
+export type IContact = {
   link: string,
   icon: IImage,
 }
 
-export interface IContacts {
-  data: IContact[],
+export type IContacts = {
+  data: Prop<IContact[]>,
 }

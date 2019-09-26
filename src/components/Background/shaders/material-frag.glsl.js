@@ -53,8 +53,9 @@ void main()
       );
 
     light *= .35;
+    // gl_FragColor = vec4(255.);
     gl_FragColor = vec4(light, 1.0);
-    // gl_FragColor = vec4(light * .5, 1.0);
+    gl_FragColor = vec4(light * .5, 1.0);
     // gl_FragColor = vec4(.5 - normalize(vNormal), 1.);
 }
 `
