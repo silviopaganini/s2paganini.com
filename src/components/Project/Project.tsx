@@ -6,12 +6,14 @@ type ImageProps = {
   src: string
 }
 
+const marginDiff = 45;
+
 const Wrapper = styled.a`
   align-self: center;
   cursor: pointer;
   position: relative;
-  height: 200px;
-  width: 100vw;
+  width: ${() => window.innerWidth / 2 - marginDiff}px;
+  height: ${() => window.innerWidth / 2 - marginDiff}px;
   margin: 10px 0;
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.green};
@@ -27,6 +29,7 @@ const Wrapper = styled.a`
     @media${breakpoint.laptop} {
       margin: 10px 10px 10px 0;
       width: 200px;
+      height: 200px;
     }`
   };
 `

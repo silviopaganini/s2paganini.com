@@ -8,6 +8,13 @@ import Title from 'ui/Title';
 const List = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+
+  ${({ theme: { breakpoint } }) => `
+    @media${breakpoint.laptop} {
+      justify-content: flex-start;
+    }`
+  };
 `
 
 const Projects: React.SFC<IProjects> = ({ title, data }) => (
