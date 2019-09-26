@@ -5,7 +5,7 @@ import {
 import Projects from './Projects';
 import {
   IProject
-} from '../../types'
+} from 'types'
 
 const mock: IProject[] = [
   {
@@ -197,7 +197,8 @@ const mock: IProject[] = [
 }
 ]
 
-storiesOf('Projects', module).add('Projects', () => ( 
+storiesOf('Projects', module)
+.add('Projects', () => ( 
 <div>
   <Projects title = "Featured Projects"
   data = {
@@ -205,3 +206,11 @@ storiesOf('Projects', module).add('Projects', () => (
   }
   /> </div>
 ))
+.add('Projects Offline only', () => ( 
+  <div>
+    <Projects title = "Featured Projects"
+    data = {
+      mock.filter(m => !m.link)
+    }
+    /> </div>
+  ))

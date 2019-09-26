@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import styled, { withTheme } from 'styled-components'
+import React, { useState, useEffect, useRef } from 'react'
+import styled from 'styled-components'
+import { IProject } from 'types'
 
-interface IProject {
-  src: string,
-  video?: string,
-  link: string,
-  title: string
-}
-
-interface ImageProps {
-  src: string,
+type ImageProps = {
+  src: string
 }
 
 const Wrapper = styled.a`
   align-self: center;
   cursor: pointer;
   position: relative;
-  width: 200px;
   height: 200px;
-  margin: 10px 10px 10px 0;
+  width: 100vw;
+  margin: 10px 0;
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.green};
   display: flex;
   flex-direction: column;
-
-  border: 5px solid ${({theme}) => theme.colors.darkGrey};
+  border: 5px solid ${({ theme }) => theme.colors.darkGrey};
 
   &:hover {
-    border-color: ${({theme}) => theme.colors.green};
+    border-color: ${({ theme }) => theme.colors.green};
   }
+
+  ${({ theme: { breakpoint } }) => `
+    @media${breakpoint.laptop} {
+      margin: 10px 10px 10px 0;
+      width: 200px;
+    }`
+  };
 `
 
 const ProjectItem = styled.div`
@@ -36,7 +36,7 @@ const ProjectItem = styled.div`
   width: 100%;
   height: 100%;
   transform: scale(1, 1);
-  transition: all .25s ${({ theme: { easings } }) => easings.easeOutCubic};
+  transition: all 0.25s ${({ theme: { easings } }) => easings.easeOutCubic};
 
   ${Wrapper}:hover & {
     transform: scale(1.2, 1.2);
@@ -52,7 +52,7 @@ const Video = styled.video`
   padding: 0;
   z-index: 1;
   transform: translate(-50%, -50%);
-  transition: all .35s ease-out;
+  transition: all 0.35s ease-out;
   height: 190px;
   width: 190px;
   opacity: 0;
@@ -69,7 +69,7 @@ const Image = styled.div<ImageProps>`
   background-size: cover;
   width: 100%;
   height: 100%;
-  transition: all .15s ease-out;
+  transition: all 0.15s ease-out;
   filter: grayscale(100%);
 
   ${Wrapper}:hover & {
@@ -88,7 +88,7 @@ const Text = styled.div`
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  transition: all .2s ${({ theme: { easings } }) => easings.easeOutQuad};
+  transition: all 0.2s ${({ theme: { easings } }) => easings.easeOutQuad};
   p {
     color: black;
     font-size: 13px;
@@ -101,38 +101,71 @@ const Text = styled.div`
   }
 `
 
-const Project:React.SFC<IProject> = ({ src, video, link, title }) => {
+const Offline = styled.div`
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  transition: all 0.35s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  height: 90%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+
+  ${Wrapper}:hover & {
+    opacity: 1;
+  }
+`
+
+const Project: React.SFC<IProject> = ({ thumb, video, link, title }) => {
   const [isHover, setHover] = useState(false)
-  let videoRef: HTMLVideoElement | null
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     if (isHover) {
-      if (videoRef) videoRef.play()
+      if (videoRef && videoRef.current) videoRef.current.play()
     } else {
-      if (videoRef) videoRef.pause()
+      if (videoRef && videoRef.current) videoRef.current.pause()
     }
   })
 
   return (
     <Wrapper
       onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)} rel='noopener noreferrer'
-      href={link} 
-      target='_blank'>
+      onMouseLeave={() => setHover(false)}
+      rel="noopener noreferrer"
+      href={link}
+      target="_blank"
+    >
       <ProjectItem>
-        <Image src={src} />
-        {video &&
+        <Image src={thumb.url} />
+        {video && (
           <Video
-            ref={r => { videoRef = r }}
+            ref={videoRef}
             playsInline
             muted
             loop
-            preload='auto'
-            width='200'
-            height='200'>
-            <source src={video} type='video/mp4' />
+            preload="auto"
+            width="200"
+            height="200"
+          >
+            <source src={video.url} type="video/mp4" />
           </Video>
-        }
+        )}
+        {!link && (
+          <Offline>
+            <span role="img" aria-label="sad">
+              😩
+            </span>{' '}
+            offline
+          </Offline>
+        )}
       </ProjectItem>
       <Text>
         <p>{title}</p>
@@ -141,5 +174,4 @@ const Project:React.SFC<IProject> = ({ src, video, link, title }) => {
   )
 }
 
-// @ts-ignore
-export default withTheme(Project) 
+export default Project

@@ -6,6 +6,20 @@ const query = gql`
     content
     type
   }
+  experiments {
+    id
+    title
+    link
+    thumb {
+      id
+      url
+    }
+    video {
+      id
+      url
+      mimeType
+    }
+  }
   projects {
     id
     title

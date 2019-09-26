@@ -20,6 +20,7 @@ const Loading = styled(Main)`
 type Response = {
   contents?: IContent[]
   projects?: IProject[]
+  experiments?: IProject[]
   techStacks?: IStack[]
   contacts?: IContact[]
 }
@@ -30,6 +31,7 @@ const App: React.SFC<ChildProps> = ({
   data: {
     contents,
     projects,
+    experiments,
     techStacks,
     contacts,
     loading,
@@ -43,6 +45,7 @@ const App: React.SFC<ChildProps> = ({
     <Main>
       <Background />
       <Body data={contents ? contents.find(c => c.type === 'intro')!.content : undefined} />
+      <Projects title="Experiments" data={experiments} />
       <Projects title="Featured Work" data={projects} />
       <Stack data={techStacks} />
       <Body

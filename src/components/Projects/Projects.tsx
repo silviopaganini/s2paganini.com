@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import Project from '../Project'
-import { IProjects } from '../../types'
-import Wrapper from '../../ui/Wrapper';
-import Title from '../../ui/Title';
+import { IProjects } from 'types'
+import Wrapper from 'ui/Wrapper';
+import Title from 'ui/Title';
 
 const List = styled.div`
   display: flex;
@@ -14,12 +14,12 @@ const Projects: React.SFC<IProjects> = ({ title, data }) => (
   <Wrapper>
     <Title>{title}</Title>
     <List>
-      {data && data.map(p => (
+      {data && data.map((p, index) => (
         <Project
-          key={p.id}
-          src={p.thumb.url}
+          key={index.toString()}
+          thumb={p.thumb}
           link={p.link}
-          video={p.video ? p.video.url : null}
+          video={p.video}
           title={p.title}
         />
       ))}

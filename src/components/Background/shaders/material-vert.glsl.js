@@ -1,8 +1,8 @@
 export default `
 #define PI 3.14159265359
-varying vec2 vUv;
+// varying vec2 vUv;
 varying vec3 vPosition;
-varying vec3 vNormal;
+// varying vec3 vNormal;
 varying vec3 vLight;
 varying vec3 vNoise;
 
@@ -114,7 +114,7 @@ vec3 curlNoise( vec3 p ){
 }
 
 void main() {
-    vUv = uv;
+    // vUv = uv;
     vec4 mvPosition = modelViewMatrix * vec4(position , 1.0 );
 
     float aaTime = uTime * 1.95;
@@ -137,7 +137,7 @@ void main() {
     mvPosition.y += (sin(aaTime) * (dist.y) );
     mvPosition.z += (sin(aaTime) * (dist.z) );
 
-    vNormal = normal;
+    // vNormal = normal;
     vLight = normalize(lightDirection - vPosition);
 
     gl_Position = projectionMatrix * mvPosition;

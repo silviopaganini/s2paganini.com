@@ -20,12 +20,13 @@ export type IImage = {
 }
 
 export type IProject = {
-  id: string,
+  id?: string,
+  key: string,
   link?: string,
   video?: IVideo,
   title: string,
   thumb: IImage,
-  __typename: string,
+  __typename?: string,
 }
 
 export type IProjects = {

@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import Markdown from '../../ui/Markdown'
-import Wrapper from '../../ui/Wrapper'
-import Title, { SubTitle } from '../../ui/Title'
-import { IStacks } from '../../types'
+import Markdown from 'ui/Markdown'
+import Wrapper from 'ui/Wrapper'
+import Title, { SubTitle } from 'ui/Title'
+import { IStacks } from 'types'
 
 const StacksWrapper = styled.div`
   display: flex;
