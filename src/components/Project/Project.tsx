@@ -16,13 +16,15 @@ const Wrapper = styled.a`
   height: ${() => window.innerWidth / 2 - marginDiff}px;
   margin: 10px 0;
   overflow: hidden;
-  background-color: ${({ theme }) => theme.colors.green};
+  /* background-color: ${({ theme }) => theme.colors.green}; */
   display: flex;
   flex-direction: column;
   border: 5px solid ${({ theme }) => theme.colors.darkGrey};
+  transition: all 0.2s;
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.green};
+    background-color: ${({ theme }) => theme.colors.green};
   }
 
   ${({ theme: { breakpoint } }) => `
