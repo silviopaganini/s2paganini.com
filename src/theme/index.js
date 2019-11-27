@@ -1,3 +1,5 @@
+import { createGlobalStyle } from 'styled-components'
+
 const size = {
   mobileS: '320px',
   mobileM: '375px',
@@ -53,3 +55,44 @@ export default {
     easeInOutBack: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
   }
 }
+
+export const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
+  * {
+    font-family: 'Inconsolata', monospace;
+    font-weight: 100;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: white;
+    background-color: black;
+  }
+
+  ::selection {
+    background: transparent;
+    text-shadow: none;
+  }
+
+  a {
+    color: #63FFCB;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all .2s ease-out;
+  }
+
+  a:hover {
+    border-bottom: 2px solid #63FFCB;
+  }
+
+  p {
+    color: #CCC;
+    line-height: 24px;
+    font-size: 16px;
+  }
+`

@@ -20,7 +20,7 @@ const query = gql`
       mimeType
     }
   }
-  projects {
+  projects (orderBy: order_ASC) {
     id
     title
     link

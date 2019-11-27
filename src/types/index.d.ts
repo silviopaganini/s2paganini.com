@@ -26,6 +26,7 @@ export type IProject = {
   video?: IVideo,
   title: string,
   thumb: IImage,
+  order?: number,
   __typename?: string,
 }
 
