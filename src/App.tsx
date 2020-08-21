@@ -1,13 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { graphql, ChildDataProps } from 'react-apollo'
 import styled from 'styled-components'
-import Projects from './components/Projects'
-import Stack from './components/Stack'
-import Body from './components/Body'
-import Background from './components/Background'
-import Footer from './components/Footer'
+import { Projects, Stack, Body, Case, Background, Footer } from './components'
 import { IProject, IStack, IContact, IContent } from './types'
 import query from './query'
+import { Context } from 'context'
 
 const Main = styled.main`
   padding: 0 30px 50px;
@@ -27,7 +24,7 @@ type Response = {
 
 type ChildProps = ChildDataProps<{}, Response, {}>
 
-const App: React.SFC<ChildProps> = ({
+const App = ({
   data: {
     contents,
     projects,
@@ -35,27 +32,46 @@ const App: React.SFC<ChildProps> = ({
     techStacks,
     contacts,
     loading,
-    error
-  }
-}) => {
+    error,
+  },
+}: ChildProps) => {
+  const {
+    state: { project },
+  } = useContext(Context)
+
   if (loading) return <Loading>Loading...</Loading>
   if (error) return <Loading>{JSON.stringify(error)}</Loading>
 
   return (
     <Main>
-      <Background />
-      <Body data={contents ? contents.find(c => c.type === 'intro')!.content : undefined} />
+      {!project && <Background />}
+      <Body
+        data={
+          contents
+            ? contents.find((c) => c.type === 'intro')!.content
+            : undefined
+        }
+      />
       <Projects title="Experiments" data={experiments} />
       <Projects title="Featured Work" data={projects} />
       <Stack data={techStacks} />
       <Body
         title="Awards"
-        data={contents ? contents.find(c => c.type === 'awards')!.content : undefined}
+        data={
+          contents
+            ? contents.find((c) => c.type === 'awards')!.content
+            : undefined
+        }
       />
       <Body
         title="Publications"
-        data={contents ? contents.find(c => c.type === 'publications')!.content : undefined}
+        data={
+          contents
+            ? contents.find((c) => c.type === 'publications')!.content
+            : undefined
+        }
       />
+      {project && <Case />}
       <Footer data={contacts} />
     </Main>
   )

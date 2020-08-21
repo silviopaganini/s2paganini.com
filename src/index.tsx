@@ -6,6 +6,7 @@ import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { ThemeProvider } from 'styled-components'
 import theme, { GlobalStyle } from './theme'
+import Provider from './context'
 
 import App from './App'
 import * as serviceWorker from './serviceWorker'
@@ -19,12 +20,14 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <ThemeProvider theme={theme}>
-      <>
-      <App />
-      <GlobalStyle />
-      </>
-    </ThemeProvider>
+    <Provider>
+      <ThemeProvider theme={theme}>
+        <>
+          <App />
+          <GlobalStyle />
+        </>
+      </ThemeProvider>
+    </Provider>
   </ApolloProvider>,
   document.getElementById('root')
 )

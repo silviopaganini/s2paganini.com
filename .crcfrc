@@ -1,8 +1,10 @@
 [
-  "createindex",
   "nocss",
   "nosemi",
   "functional",
   "typescript",
-  "stories"
+  "stories",
+  {
+    "output": "./src/components"
+  }
 ]
