@@ -18,12 +18,10 @@ export enum Types {
 
 type ProjectPayload = {
   [Types.CHANGE_PROJECT]: {
-    project: IProject
+    project: IProject | null
   }
 }
-export type ProjectActions = ActionMap<ProjectPayload>[keyof ActionMap<
-  ProjectPayload
->]
+export type ProjectActions = ActionMap<ProjectPayload>[keyof ActionMap<ProjectPayload>]
 
 const reducer = (state: StateType, action: ProjectActions) => {
   let newState = {}

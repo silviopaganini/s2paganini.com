@@ -20,12 +20,13 @@ const Stack: React.SFC<IStacks> = ({ data }) => (
   <Wrapper>
     <Title>Tech Stack</Title>
     <StacksWrapper>
-      {data && data.map(d => (
-        <StackWrapper key={d.title}>
-          <SubTitle>{d.title}</SubTitle>
-          <Markdown source={d.stack} />
-        </StackWrapper>
-      ))}
+      {data &&
+        data.map(d => (
+          <StackWrapper key={d.title}>
+            <SubTitle>{d.title}</SubTitle>
+            <Markdown source={d.stack} />
+          </StackWrapper>
+        ))}
     </StacksWrapper>
   </Wrapper>
 )

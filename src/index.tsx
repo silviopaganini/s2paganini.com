@@ -13,7 +13,7 @@ import * as serviceWorker from './serviceWorker'
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://api-euwest.graphcms.com/v1/cjt00t9oxigpy01ckog5bx6vc/master',
+    uri: 'https://api-eu-central-1.graphcms.com/v2/cjt00t9oxigpy01ckog5bx6vc/master',
   }),
   cache: new InMemoryCache(),
 })

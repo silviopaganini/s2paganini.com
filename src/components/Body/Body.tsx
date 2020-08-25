@@ -22,9 +22,7 @@ const Body = ({ data, title }: Props) => (
         <Markdown renderers={renderers} source={data} />
       </Wrapper>
     ) : (
-      <Section>
-        {data && <Markdown renderers={renderers} source={data} />}
-      </Section>
+      <Section>{data && <Markdown renderers={renderers} source={data} />}</Section>
     )}
   </>
 )

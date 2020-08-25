@@ -1,7 +1,14 @@
 import React, { useContext } from 'react'
 import { graphql, ChildDataProps } from 'react-apollo'
 import styled from 'styled-components'
-import { Projects, Stack, Body, Case, Background, Footer } from './components'
+import {
+  Projects,
+  Stack,
+  Body,
+  Case,
+  // Background,
+  Footer,
+} from './components'
 import { IProject, IStack, IContact, IContent } from './types'
 import query from './query'
 import { Context } from 'context'
@@ -44,7 +51,7 @@ const App = ({
 
   return (
     <Main>
-      {!project && <Background />}
+      {/* {!project && <Background />} */}
       <Body
         data={
           contents

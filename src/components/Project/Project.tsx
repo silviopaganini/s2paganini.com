@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { IProject } from 'types'
+import { Context } from 'context'
+import { Types } from 'reducers'
 
 type ImageProps = {
   src: string
 }
 
-const marginDiff = 45;
+const marginDiff = 45
 
 const Wrapper = styled.a`
   align-self: center;
@@ -32,8 +34,7 @@ const Wrapper = styled.a`
       margin: 10px 10px 10px 0;
       width: 200px;
       height: 200px;
-    }`
-  };
+    }`};
 `
 
 const ProjectItem = styled.div`
@@ -128,9 +129,16 @@ const Offline = styled.div`
   }
 `
 
-const Project: React.SFC<IProject> = ({ thumb, video, link, title }) => {
+type Props = {
+  project: IProject
+}
+
+const Project = ({ project }: Props) => {
+  const { thumb, video, link, title } = project
   const [isHover, setHover] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+
+  const { dispatch } = useContext(Context)
 
   useEffect(() => {
     if (isHover) {
@@ -140,26 +148,23 @@ const Project: React.SFC<IProject> = ({ thumb, video, link, title }) => {
     }
   })
 
+  const onClick = () => {
+    dispatch({ type: Types.CHANGE_PROJECT, payload: { project } })
+  }
+
   return (
     <Wrapper
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      rel="noopener noreferrer"
-      href={link}
-      target="_blank"
+      onClick={onClick}
+      // rel="noopener noreferrer"
+      // href={link}
+      // target="_blank"
     >
       <ProjectItem>
         <Image src={thumb.url} />
         {video && (
-          <Video
-            ref={videoRef}
-            playsInline
-            muted
-            loop
-            preload="auto"
-            width="200"
-            height="200"
-          >
+          <Video ref={videoRef} playsInline muted loop preload="auto" width="200" height="200">
             <source src={video.url} type="video/mp4" />
           </Video>
         )}

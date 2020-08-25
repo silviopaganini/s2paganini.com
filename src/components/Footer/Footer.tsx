@@ -34,13 +34,14 @@ const Image = styled.img`
 const Footer: React.SFC<IContacts> = ({ data }) => {
   return (
     <ContactWrapper>
-      {data && data.map(c => (
-        <Contact key={c.link}>
-          <ContactLink href={c.link} target="_blank">
-            <Image src={c.icon.url} />
-          </ContactLink>
-        </Contact>
-      ))}
+      {data &&
+        data.map(c => (
+          <Contact key={c.link}>
+            <ContactLink href={c.link} target="_blank">
+              <Image src={c.icon.url} />
+            </ContactLink>
+          </Contact>
+        ))}
     </ContactWrapper>
   )
 }

@@ -60,17 +60,11 @@ class Background extends Component {
     this.renderer.setClearAlpha(0)
     this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1))
     this.renderer.setSize(window.innerWidth, window.innerHeight)
-    this.renderer.gammaInput = true
     this.renderer.gammaOuput = true
   }
 
   createScene() {
-    this.camera = new PerspectiveCamera(
-      1000,
-      window.innerWidth / window.innerHeight,
-      0.01,
-      4000
-    )
+    this.camera = new PerspectiveCamera(1000, window.innerWidth / window.innerHeight, 0.01, 4000)
     this.camera.position.set(0, 0, 0)
 
     this.scene = new Scene()

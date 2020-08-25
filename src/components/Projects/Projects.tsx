@@ -16,22 +16,10 @@ const List = styled.div`
     }`};
 `
 
-const Projects: React.SFC<IProjects> = ({ title, data }) => (
+const Projects = ({ title, data }: IProjects) => (
   <Wrapper>
     <Title>{title}</Title>
-    <List>
-      {data &&
-        data
-          .map((p, index) => (
-            <Project
-              key={index.toString()}
-              thumb={p.thumb}
-              link={p.link}
-              video={p.video}
-              title={p.title}
-            />
-          ))}
-    </List>
+    <List>{data && data.map((p, index) => <Project key={index.toString()} project={p} />)}</List>
   </Wrapper>
 )
 
