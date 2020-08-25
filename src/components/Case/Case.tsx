@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Wrapper, Markdown } from 'ui'
 import { renderers } from 'utils'
 import { Context } from 'context'
@@ -72,6 +73,8 @@ const IFrame = styled.iframe`
   }
 `
 
+const ContainerAnim = motion.custom(Container)
+
 const Case = () => {
   const {
     dispatch,
@@ -81,19 +84,26 @@ const Case = () => {
   const onClose = () => dispatch({ type: Types.CHANGE_PROJECT, payload: { project: null } })
 
   return (
-    <Container>
-      <CaseWrapper as="div">
-        <CloseButton onClick={onClose}>×</CloseButton>
-        {project?.body ? (
-          <Markdown escapeHtml={false} renderers={renderers} source={project?.body} />
-        ) : (
-          <>
-            <h1>{project?.title}</h1>
-            <IFrame src={project?.link} />
-          </>
-        )}
-      </CaseWrapper>
-    </Container>
+    <AnimatePresence>
+      <ContainerAnim
+        key={project?.id}
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -300, opacity: 0 }}
+      >
+        <CaseWrapper as="div">
+          <CloseButton onClick={onClose}>×</CloseButton>
+          {project?.body ? (
+            <Markdown escapeHtml={false} renderers={renderers} source={project?.body} />
+          ) : (
+            <>
+              <h1>{project?.title}</h1>
+              <IFrame src={project?.link} />
+            </>
+          )}
+        </CaseWrapper>
+      </ContainerAnim>
+    </AnimatePresence>
   )
 }
 

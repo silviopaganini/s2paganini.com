@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect, useRef, useLayoutEffect } from 'react'
 import styled from 'styled-components'
 import { IProject } from 'types'
 import { Context } from 'context'
@@ -32,36 +32,62 @@ const Wrapper = styled.a`
   ${({ theme: { breakpoint } }) => `
     @media${breakpoint.laptop} {
       margin: 10px 10px 10px 0;
-      width: 200px;
-      height: 200px;
+      width: 32%;
     }`};
 `
 
+const DotSize = '1px'
+const DotSpace = '5px'
+
 const ProjectItem = styled.div`
+  position: relative;
   object-fit: cover;
   width: 100%;
   height: 100%;
   transform: scale(1, 1);
   transition: all 0.25s ${({ theme: { easings } }) => easings.easeOutCubic};
 
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background: linear-gradient(
+          90deg,
+          black ${parseInt(DotSpace) - parseInt(DotSize)}px,
+          transparent 1%
+        )
+        center,
+      linear-gradient(black ${parseInt(DotSpace) - parseInt(DotSize)}px, transparent 1%) center,
+      white;
+    background-size: ${DotSpace} ${DotSpace};
+  }
+
   ${Wrapper}:hover & {
     transform: scale(1.2, 1.2);
+    &:after {
+      opacity: 0.2;
+    }
   }
 `
 
 const Video = styled.video`
   pointer-events: none;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   margin: 0;
   padding: 0;
   z-index: 1;
-  transform: translate(-50%, -50%);
-  transition: all 0.35s ease-out;
-  height: 190px;
-  width: 190px;
+  height: 100%;
+  width: 100%;
   opacity: 0;
+  object-fit: cover;
 
   ${Wrapper}:hover & {
     opacity: 1;
@@ -73,6 +99,7 @@ const Image = styled.div<ImageProps>`
   position: relative;
   background-image: url(${({ src }) => src});
   background-size: cover;
+  background-position: center;
   width: 100%;
   height: 100%;
   transition: all 0.15s ease-out;
@@ -139,6 +166,14 @@ const Project = ({ project }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const { dispatch } = useContext(Context)
+  const thumbWrapper = useRef<HTMLAnchorElement>()
+
+  useLayoutEffect(() => {
+    if (!thumbWrapper.current) return
+    thumbWrapper.current.style.height = `${
+      thumbWrapper.current.getBoundingClientRect().width * 0.66
+    }px`
+  })
 
   useEffect(() => {
     if (isHover) {
@@ -157,9 +192,7 @@ const Project = ({ project }: Props) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={onClick}
-      // rel="noopener noreferrer"
-      // href={link}
-      // target="_blank"
+      ref={thumbWrapper as any}
     >
       <ProjectItem>
         <Image src={thumb.url} />
