@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { IProject } from 'types'
 import { Context } from 'context'
 import { Types } from 'reducers'
+import { motion, Variants } from 'framer-motion'
 
 type ImageProps = {
   src: string
@@ -32,7 +33,7 @@ const Wrapper = styled.a`
   ${({ theme: { breakpoint } }) => `
     @media${breakpoint.laptop} {
       margin: 10px 10px 10px 0;
-      width: 32%;
+      width: 24%;
     }`};
 `
 
@@ -134,34 +135,16 @@ const Text = styled.div`
   }
 `
 
-const Offline = styled.div`
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  z-index: 10;
-  transition: all 0.35s ease-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  height: 90%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
-
-  ${Wrapper}:hover & {
-    opacity: 1;
-  }
-`
-
 type Props = {
   project: IProject
+  index: number
+  opened?: boolean
 }
 
-const Project = ({ project }: Props) => {
-  const { thumb, video, link, title } = project
+const AnimProject = motion.custom(Wrapper)
+
+const Project = ({ project, index, opened }: Props) => {
+  const { thumb, video, title } = project
   const [isHover, setHover] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -187,11 +170,30 @@ const Project = ({ project }: Props) => {
     dispatch({ type: Types.CHANGE_PROJECT, payload: { project } })
   }
 
+  const variants = {
+    hid: {
+      opacity: 0,
+      y: -25,
+    },
+    vis: {
+      opacity: 1,
+      y: 0,
+    },
+  } as Variants
+
   return (
-    <Wrapper
+    <AnimProject
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={onClick}
+      initial="hid"
+      variants={variants}
+      animate={opened ? 'vis' : 'hid'}
+      transition={{
+        delay: opened ? index * 0.15 : 0,
+        ease: 'backInOut',
+        duration: opened ? 0.5 : 0,
+      }}
       ref={thumbWrapper as any}
     >
       <ProjectItem>
@@ -201,19 +203,11 @@ const Project = ({ project }: Props) => {
             <source src={video.url} type="video/mp4" />
           </Video>
         )}
-        {!link && (
-          <Offline>
-            <span role="img" aria-label="sad">
-              😩
-            </span>{' '}
-            offline
-          </Offline>
-        )}
       </ProjectItem>
       <Text>
         <p>{title}</p>
       </Text>
-    </Wrapper>
+    </AnimProject>
   )
 }
 

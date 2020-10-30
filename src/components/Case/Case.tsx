@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Wrapper, Markdown } from 'ui'
-import { renderers } from 'utils'
+import { Wrapper } from 'ui'
 import { Context } from 'context'
 import { Types } from 'reducers'
+import Markdown from 'markdown-to-jsx'
 
 const Container = styled.section`
   position: fixed;
@@ -18,36 +18,37 @@ const Container = styled.section`
   padding: 5% 10%;
 `
 
-const CaseWrapper = styled(Wrapper)`
-  max-width: 1024px;
-  margin: 0 auto;
+const Table = styled.table`
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+  width: 100%;
   position: relative;
+  max-width: 1024px;
+  table-layout: fixed;
 
-  img {
-    width: 100%;
+  th {
+    text-align: left;
   }
 
-  span {
-    width: 100%;
-    text-align: center;
-    display: block;
-  }
-
-  table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: 0;
-    width: 100%;
-    position: relative;
-  }
-
-  table,
   tr,
   td,
   tbody {
     margin: 0;
     padding: 0;
+    vertical-align: baseline;
   }
+`
+
+const Img = styled.img`
+  position: relative;
+  max-width: 100%;
+`
+
+const CaseWrapper = styled(Wrapper)`
+  max-width: 1024px;
+  margin: 0 auto;
+  position: relative;
 `
 
 const CloseButton = styled.button`
@@ -62,6 +63,11 @@ const CloseButton = styled.button`
   cursor: pointer;
 `
 
+const IFrameCase = styled.iframe`
+  margin: 0 auto;
+  display: block;
+`
+
 const IFrame = styled.iframe`
   border: 1px solid white;
   outline: none;
@@ -71,6 +77,12 @@ const IFrame = styled.iframe`
   .credits {
     display: none;
   }
+`
+
+const Span = styled.span`
+  padding: 56.25% 0 0 0;
+  position: relative;
+  display: block;
 `
 
 const ContainerAnim = motion.custom(Container)
@@ -90,11 +102,36 @@ const Case = () => {
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -300, opacity: 0 }}
+        transition={{ duration: 0.5 }}
       >
         <CaseWrapper as="div">
           <CloseButton onClick={onClose}>×</CloseButton>
           {project?.body ? (
-            <Markdown escapeHtml={false} renderers={renderers} source={project?.body} />
+            <Markdown
+              options={{
+                overrides: {
+                  span: {
+                    component: Span,
+                  },
+                  img: {
+                    component: Img,
+                  },
+                  table: {
+                    component: Table,
+                  },
+                  iframe: {
+                    component: IFrameCase,
+                  },
+                  a: {
+                    props: {
+                      target: '_blank',
+                    },
+                  },
+                },
+              }}
+            >
+              {project.body}
+            </Markdown>
           ) : (
             <>
               <h1>{project?.title}</h1>

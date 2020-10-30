@@ -4,7 +4,7 @@ import Projects from './Projects'
 
 describe('<Projects />', () => {
   test('renders', () => {
-    const wrapper = shallow(<Projects />)
+    const wrapper = shallow(<Projects title="experiments" data={[]} />)
     expect(wrapper).toMatchSnapshot()
   })
 })

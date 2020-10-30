@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import Markdown from 'ui/Markdown'
-import Wrapper from 'ui/Wrapper'
-import Title from 'ui/Title'
-import { renderers } from 'utils'
+import Markdown from 'markdown-to-jsx'
+import { Wrapper, Title } from 'ui'
 
 const Section = styled.section`
   max-width: 800px;
@@ -14,15 +12,43 @@ type Props = {
   title?: string
 }
 
+const Li = styled.li`
+  font-size: 0.95rem;
+  line-height: 24px;
+  margin: 0 0 8px;
+  padding: 0;
+  color: ${({ theme: { colors } }) => colors.darkerGrey};
+`
+
+const Ul = styled.ul`
+  font-size: 0.95rem;
+  line-height: 24px;
+  margin: 0 0 8px;
+  color: ${({ theme: { colors } }) => colors.lightGrey};
+`
+
 const Body = ({ data, title }: Props) => (
   <>
     {title ? (
       <Wrapper>
         <Title>{title}</Title>
-        <Markdown renderers={renderers} source={data} />
+        <Markdown
+          options={{
+            overrides: {
+              li: {
+                component: Li,
+              },
+              ul: {
+                component: Ul,
+              },
+            },
+          }}
+        >
+          {data!}
+        </Markdown>
       </Wrapper>
     ) : (
-      <Section>{data && <Markdown renderers={renderers} source={data} />}</Section>
+      <Section>{data && <Markdown>{data}</Markdown>}</Section>
     )}
   </>
 )
