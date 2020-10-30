@@ -12,3 +12,11 @@ export const SubTitle = styled.h3`
   padding: 0;
   color: ${({ theme: { colors } }) => colors.lightGrey};
 `
+
+export const TerTitle = styled.h4`
+  font-size: 0.85rem;
+  line-height: 0;
+  font-weight: normal;
+  padding: 0;
+  color: ${({ theme: { colors } }) => colors.grey};
+`

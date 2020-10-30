@@ -2,37 +2,49 @@ import React from 'react'
 import styled from 'styled-components'
 import Project from '../Project'
 import { IProjects } from 'types'
-import Wrapper from 'ui/Wrapper'
-import Title from 'ui/Title'
+import { Wrapper, Title } from 'ui'
+import { TerTitle } from 'ui/Title'
 
 const List = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fill, 48%);
+  gap: 1vw;
 
   ${({ theme: { breakpoint } }) => `
     @media${breakpoint.laptop} {
-      justify-content: flex-start;
+      grid-template-columns: repeat(auto-fill, minmax(15%, 18%));
     }`};
 `
 
-const Projects: React.SFC<IProjects> = ({ title, data }) => (
-  <Wrapper>
-    <Title>{title}</Title>
-    <List>
-      {data &&
-        data
-          .map((p, index) => (
-            <Project
-              key={index.toString()}
-              thumb={p.thumb}
-              link={p.link}
-              video={p.video}
-              title={p.title}
-            />
-          ))}
-    </List>
-  </Wrapper>
-)
+const TitleContainer = styled.div`
+  display: inline-block;
+  h2 {
+    display: inline-block;
+  }
+  span {
+    margin-top: 23px;
+    margin-left: 10px;
+    font-size: 10px;
+    color: grey;
+  }
+`
+
+const Projects = ({ subTitle, title, data }: IProjects) => {
+  return (
+    <Wrapper>
+      <TitleContainer>
+        <Title>{title}</Title>
+        {subTitle && <TerTitle>{subTitle}</TerTitle>}
+      </TitleContainer>
+      <List>
+        {data &&
+          data.map((p, index) => <Project index={index} key={index.toString()} project={p} />)}
+      </List>
+    </Wrapper>
+  )
+}
 
 export default Projects

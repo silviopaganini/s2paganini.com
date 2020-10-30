@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { graphql, ChildDataProps } from 'react-apollo'
 import styled from 'styled-components'
-import Projects from './components/Projects'
-import Stack from './components/Stack'
-import Body from './components/Body'
-import Background from './components/Background'
-import Footer from './components/Footer'
+import {
+  Projects,
+  Stack,
+  Body,
+  Case,
+  // Background,
+  Footer,
+} from './components'
 import { IProject, IStack, IContact, IContent } from './types'
 import query from './query'
+import { Context } from 'context'
 
 const Main = styled.main`
   padding: 0 30px 50px;
@@ -20,6 +24,7 @@ const Loading = styled(Main)`
 type Response = {
   contents?: IContent[]
   projects?: IProject[]
+  recent?: IProject[]
   experiments?: IProject[]
   techStacks?: IStack[]
   contacts?: IContact[]
@@ -27,26 +32,27 @@ type Response = {
 
 type ChildProps = ChildDataProps<{}, Response, {}>
 
-const App: React.SFC<ChildProps> = ({
-  data: {
-    contents,
-    projects,
-    experiments,
-    techStacks,
-    contacts,
-    loading,
-    error
-  }
-}) => {
+const App = ({
+  data: { contents, projects, recent, experiments, techStacks, contacts, loading, error },
+}: ChildProps) => {
+  const {
+    state: { project },
+  } = useContext(Context)
+
   if (loading) return <Loading>Loading...</Loading>
   if (error) return <Loading>{JSON.stringify(error)}</Loading>
 
   return (
     <Main>
-      <Background />
+      {/* <Background /> */}
       <Body data={contents ? contents.find(c => c.type === 'intro')!.content : undefined} />
-      <Projects title="Experiments" data={experiments} />
+      <Projects
+        title="Recent Work"
+        subTitle="...get in touch for more recent work..."
+        data={recent}
+      />
       <Projects title="Featured Work" data={projects} />
+      <Projects title="Experiments" data={experiments} />
       <Stack data={techStacks} />
       <Body
         title="Awards"
@@ -56,6 +62,7 @@ const App: React.SFC<ChildProps> = ({
         title="Publications"
         data={contents ? contents.find(c => c.type === 'publications')!.content : undefined}
       />
+      {project && <Case />}
       <Footer data={contacts} />
     </Main>
   )

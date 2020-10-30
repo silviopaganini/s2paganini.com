@@ -1,9 +1,8 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import Markdown from 'ui/Markdown'
-import Wrapper from 'ui/Wrapper'
-import Title from 'ui/Title'
-import { Prop } from 'types'
+import Markdown from 'markdown-to-jsx'
+import { Wrapper, Title } from 'ui'
+import { Li, Ul } from 'ui/List'
 
 const Section = styled.section`
   max-width: 800px;
@@ -14,34 +13,35 @@ type Props = {
   title?: string
 }
 
-const renderers = {
-  link: (props: any) => {
-    if (props.href.match('http')) {
-      return (
-        <a href={props.href} target="_blank" rel="nofollow noreferrer noopener">
-          {props.children}
-        </a>
-      )
-    }
-    return <a href={props.href}>{props.children}</a>
-  },
-}
-
-const Body: React.SFC<Prop<Props>> = ({ data, title }) => (
-  <Fragment>
-    {title && (
+const Body = ({ data, title }: Props) => (
+  <>
+    {title ? (
       <Wrapper>
         <Title>{title}</Title>
-        <Markdown renderers={renderers} source={data} />
+        <Markdown
+          options={{
+            overrides: {
+              li: {
+                component: Li,
+              },
+              ul: {
+                component: Ul,
+              },
+              a: {
+                props: {
+                  target: '_blank',
+                },
+              },
+            },
+          }}
+        >
+          {data!}
+        </Markdown>
       </Wrapper>
+    ) : (
+      <Section>{data && <Markdown>{data}</Markdown>}</Section>
     )}
-
-    {!title && (
-      <Section>
-        {data && <Markdown renderers={renderers} source={data} />}
-      </Section>
-    )}
-  </Fragment>
+  </>
 )
 
 export default Body

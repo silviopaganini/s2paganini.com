@@ -1,66 +1,102 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { IProject } from 'types'
+import { Context } from 'context'
+import { Types } from 'reducers'
+import { motion, Variants } from 'framer-motion'
+import VisibilitySensor from 'react-visibility-sensor'
 
 type ImageProps = {
   src: string
 }
 
-const marginDiff = 45;
-
 const Wrapper = styled.a`
   align-self: center;
+  box-sizing: border-box;
   cursor: pointer;
   position: relative;
-  width: ${() => window.innerWidth / 2 - marginDiff}px;
-  height: ${() => window.innerWidth / 2 - marginDiff}px;
-  margin: 10px 0;
   overflow: hidden;
   /* background-color: ${({ theme }) => theme.colors.green}; */
   display: flex;
   flex-direction: column;
-  border: 5px solid ${({ theme }) => theme.colors.darkGrey};
+  height: 0;
+
   transition: all 0.2s;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.green};
     background-color: ${({ theme }) => theme.colors.green};
+
+    &:after {
+      box-shadow: inset 0px 0px 0px 5px ${({ theme }) => theme.colors.green};
+    }
   }
 
-  ${({ theme: { breakpoint } }) => `
-    @media${breakpoint.laptop} {
-      margin: 10px 10px 10px 0;
-      width: 200px;
-      height: 200px;
-    }`
-  };
+  &:after {
+    transition: all 0.2s;
+    box-shadow: inset 0px 0px 0px 2px ${({ theme }) => theme.colors.darkGrey};
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+  }
+
+  padding-bottom: 70%;
+
 `
 
+const DotSize = '1px'
+const DotSpace = '5px'
+
 const ProjectItem = styled.div`
+  position: absolute;
   object-fit: cover;
   width: 100%;
   height: 100%;
   transform: scale(1, 1);
   transition: all 0.25s ${({ theme: { easings } }) => easings.easeOutCubic};
 
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background: linear-gradient(
+          90deg,
+          black ${parseInt(DotSpace) - parseInt(DotSize)}px,
+          transparent 1%
+        )
+        center,
+      linear-gradient(black ${parseInt(DotSpace) - parseInt(DotSize)}px, transparent 1%) center,
+      white;
+    background-size: ${DotSpace} ${DotSpace};
+  }
+
   ${Wrapper}:hover & {
     transform: scale(1.2, 1.2);
+    &:after {
+      opacity: 0.2;
+    }
   }
 `
 
 const Video = styled.video`
   pointer-events: none;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   margin: 0;
   padding: 0;
   z-index: 1;
-  transform: translate(-50%, -50%);
-  transition: all 0.35s ease-out;
-  height: 190px;
-  width: 190px;
+  height: 100%;
+  width: 100%;
   opacity: 0;
+  object-fit: cover;
 
   ${Wrapper}:hover & {
     opacity: 1;
@@ -69,9 +105,10 @@ const Video = styled.video`
 
 const Image = styled.div<ImageProps>`
   pointer-events: none;
-  position: relative;
+  position: absolute;
   background-image: url(${({ src }) => src});
   background-size: cover;
+  background-position: center;
   width: 100%;
   height: 100%;
   transition: all 0.15s ease-out;
@@ -106,31 +143,25 @@ const Text = styled.div`
   }
 `
 
-const Offline = styled.div`
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  z-index: 10;
-  transition: all 0.35s ease-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  height: 90%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
+type Props = {
+  project: IProject
+  index: number
+}
 
-  ${Wrapper}:hover & {
-    opacity: 1;
-  }
-`
+const AnimProject = motion.custom(Wrapper)
 
-const Project: React.SFC<IProject> = ({ thumb, video, link, title }) => {
+const Project = ({ project, index }: Props) => {
+  const { thumb, video, title } = project
   const [isHover, setHover] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+
+  const [visible, setvisible] = useState(false)
+
+  const onChange = (isVisible: boolean) => {
+    if (!visible && isVisible) setvisible(isVisible)
+  }
+
+  const { dispatch } = useContext(Context)
 
   useEffect(() => {
     if (isHover) {
@@ -140,42 +171,51 @@ const Project: React.SFC<IProject> = ({ thumb, video, link, title }) => {
     }
   })
 
+  const onClick = () => {
+    dispatch({ type: Types.CHANGE_PROJECT, payload: { project } })
+  }
+
+  const variants = {
+    hid: {
+      opacity: 0,
+      y: -25,
+      scale: 1.1,
+    },
+    vis: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+    },
+  } as Variants
+
   return (
-    <Wrapper
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      rel="noopener noreferrer"
-      href={link}
-      target="_blank"
-    >
-      <ProjectItem>
-        <Image src={thumb.url} />
-        {video && (
-          <Video
-            ref={videoRef}
-            playsInline
-            muted
-            loop
-            preload="auto"
-            width="200"
-            height="200"
-          >
-            <source src={video.url} type="video/mp4" />
-          </Video>
-        )}
-        {!link && (
-          <Offline>
-            <span role="img" aria-label="sad">
-              😩
-            </span>{' '}
-            offline
-          </Offline>
-        )}
-      </ProjectItem>
-      <Text>
-        <p>{title}</p>
-      </Text>
-    </Wrapper>
+    <VisibilitySensor active={!visible} partialVisibility onChange={onChange}>
+      <AnimProject
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onClick={onClick}
+        initial="hid"
+        variants={variants}
+        animate={visible ? 'vis' : 'hid'}
+        transition={{
+          delay: index * 0.05,
+          ease: 'backInOut',
+          duration: 0.4,
+        }}
+      >
+        <ProjectItem>
+          <Image src={thumb.url} />
+          {video && (
+            <Video ref={videoRef} playsInline muted loop preload="auto" width="200" height="200">
+              <source src={video.url} type="video/mp4" />
+            </Video>
+          )}
+        </ProjectItem>
+        <Text>
+          <p>{title}</p>
+        </Text>
+      </AnimProject>
+    </VisibilitySensor>
   )
 }
 

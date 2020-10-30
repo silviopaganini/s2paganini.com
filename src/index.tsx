@@ -6,25 +6,28 @@ import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { ThemeProvider } from 'styled-components'
 import theme, { GlobalStyle } from './theme'
+import Provider from './context'
 
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://api-euwest.graphcms.com/v1/cjt00t9oxigpy01ckog5bx6vc/master',
+    uri: 'https://api-eu-central-1.graphcms.com/v2/cjt00t9oxigpy01ckog5bx6vc/master',
   }),
   cache: new InMemoryCache(),
 })
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <ThemeProvider theme={theme}>
-      <>
-      <App />
-      <GlobalStyle />
-      </>
-    </ThemeProvider>
+    <Provider>
+      <ThemeProvider theme={theme}>
+        <>
+          <App />
+          <GlobalStyle />
+        </>
+      </ThemeProvider>
+    </Provider>
   </ApolloProvider>,
   document.getElementById('root')
 )

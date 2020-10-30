@@ -29,12 +29,12 @@ const Canvas = styled.canvas`
 `
 
 class Background extends Component {
-  renderer:any = null
-  camera:any = null
-  scene:any = null
-  material:any = null
-  form:any = null
-  mesh:any = null
+  renderer: any = null
+  camera: any = null
+  scene: any = null
+  material: any = null
+  form: any = null
+  mesh: any = null
   clock = new Clock()
 
   componentDidMount() {
@@ -60,17 +60,11 @@ class Background extends Component {
     this.renderer.setClearAlpha(0)
     this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1))
     this.renderer.setSize(window.innerWidth, window.innerHeight)
-    this.renderer.gammaInput = true
     this.renderer.gammaOuput = true
   }
 
   createScene() {
-    this.camera = new PerspectiveCamera(
-      1000,
-      window.innerWidth / window.innerHeight,
-      0.01,
-      4000
-    )
+    this.camera = new PerspectiveCamera(1000, window.innerWidth / window.innerHeight, 0.01, 4000)
     this.camera.position.set(0, 0, 0)
 
     this.scene = new Scene()
@@ -79,12 +73,12 @@ class Background extends Component {
   addObjects = () => {
     this.material = new ShaderMaterial({
       uniforms: {
-        uTime: { type: 'f', value: 0 },
-        ambient: { type: 'c', value: new Color(0x171717) },
-        specular: { type: 'c', value: new Color(0x030303) },
-        color: { type: 'c', value: new Color(0xcccccc) },
-        shininess: { type: 'f', value: 0.2 },
-        lightDirection: { type: 'v3', value: new Vector3(0, 0, 0) },
+        uTime: { value: 0 },
+        ambient: { value: new Color(0x171717) },
+        specular: { value: new Color(0x030303) },
+        color: { value: new Color(0xcccccc) },
+        shininess: { value: 0.2 },
+        lightDirection: { value: new Vector3(0, 0, 0) },
       },
       vertexShader: vert,
       fragmentShader: frag,
