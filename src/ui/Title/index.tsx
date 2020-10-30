@@ -1,2 +1,1 @@
-export { default } from './Title'
-export { SubTitle } from './Title'
+export { default, SubTitle, TerTitle } from './Title'

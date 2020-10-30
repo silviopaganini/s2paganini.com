@@ -1,35 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Project from '../Project'
 import { IProjects } from 'types'
 import { Wrapper, Title } from 'ui'
+import { TerTitle } from 'ui/Title'
 
-type ListProps = {
-  opened?: boolean
-}
-
-const List = styled.div.attrs<ListProps>(({ opened }) => ({
-  style: {
-    height: opened ? 'auto' : 0,
-  },
-}))<ListProps>`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+const List = styled.div`
   position: relative;
-  overflow: hidden;
-
-  transition: height 0.5s ${({ theme }) => theme.easings.easeOutQuad};
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fill, 48%);
+  gap: 1vw;
 
   ${({ theme: { breakpoint } }) => `
     @media${breakpoint.laptop} {
-      justify-content: flex-start;
+      grid-template-columns: repeat(auto-fill, minmax(15%, 18%));
     }`};
 `
 
 const TitleContainer = styled.div`
   display: inline-block;
-  cursor: pointer;
   h2 {
     display: inline-block;
   }
@@ -41,26 +32,16 @@ const TitleContainer = styled.div`
   }
 `
 
-const Projects = ({ title, data }: IProjects) => {
-  const [opened, setOpened] = useState(false)
-
-  const onToggle = () => {
-    setOpened(!opened)
-  }
-
-  console.log(opened)
-
+const Projects = ({ subTitle, title, data }: IProjects) => {
   return (
     <Wrapper>
-      <TitleContainer onClick={onToggle}>
+      <TitleContainer>
         <Title>{title}</Title>
-        <span>{!opened ? '(show)' : '(hide)'}</span>
+        {subTitle && <TerTitle>{subTitle}</TerTitle>}
       </TitleContainer>
-      <List opened={opened}>
+      <List>
         {data &&
-          data.map((p, index) => (
-            <Project opened={opened} index={index} key={index.toString()} project={p} />
-          ))}
+          data.map((p, index) => <Project index={index} key={index.toString()} project={p} />)}
       </List>
     </Wrapper>
   )

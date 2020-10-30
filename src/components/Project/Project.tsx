@@ -1,47 +1,55 @@
-import React, { useState, useContext, useEffect, useRef, useLayoutEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { IProject } from 'types'
 import { Context } from 'context'
 import { Types } from 'reducers'
 import { motion, Variants } from 'framer-motion'
+import VisibilitySensor from 'react-visibility-sensor'
 
 type ImageProps = {
   src: string
 }
 
-const marginDiff = 45
-
 const Wrapper = styled.a`
   align-self: center;
+  box-sizing: border-box;
   cursor: pointer;
   position: relative;
-  width: ${() => window.innerWidth / 2 - marginDiff}px;
-  height: ${() => window.innerWidth / 2 - marginDiff}px;
-  margin: 10px 0;
   overflow: hidden;
   /* background-color: ${({ theme }) => theme.colors.green}; */
   display: flex;
   flex-direction: column;
-  border: 5px solid ${({ theme }) => theme.colors.darkGrey};
+  height: 0;
+
   transition: all 0.2s;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.green};
     background-color: ${({ theme }) => theme.colors.green};
+
+    &:after {
+      box-shadow: inset 0px 0px 0px 5px ${({ theme }) => theme.colors.green};
+    }
   }
 
-  ${({ theme: { breakpoint } }) => `
-    @media${breakpoint.laptop} {
-      margin: 10px 10px 10px 0;
-      width: 24%;
-    }`};
+  &:after {
+    transition: all 0.2s;
+    box-shadow: inset 0px 0px 0px 2px ${({ theme }) => theme.colors.darkGrey};
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+  }
+
+  padding-bottom: 70%;
+
 `
 
 const DotSize = '1px'
 const DotSpace = '5px'
 
 const ProjectItem = styled.div`
-  position: relative;
+  position: absolute;
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -55,7 +63,7 @@ const ProjectItem = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: -1;
     opacity: 0;
     transition: opacity 0.2s;
     background: linear-gradient(
@@ -97,7 +105,7 @@ const Video = styled.video`
 
 const Image = styled.div<ImageProps>`
   pointer-events: none;
-  position: relative;
+  position: absolute;
   background-image: url(${({ src }) => src});
   background-size: cover;
   background-position: center;
@@ -138,25 +146,22 @@ const Text = styled.div`
 type Props = {
   project: IProject
   index: number
-  opened?: boolean
 }
 
 const AnimProject = motion.custom(Wrapper)
 
-const Project = ({ project, index, opened }: Props) => {
+const Project = ({ project, index }: Props) => {
   const { thumb, video, title } = project
   const [isHover, setHover] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  const { dispatch } = useContext(Context)
-  const thumbWrapper = useRef<HTMLAnchorElement>()
+  const [visible, setvisible] = useState(false)
 
-  useLayoutEffect(() => {
-    if (!thumbWrapper.current) return
-    thumbWrapper.current.style.height = `${
-      thumbWrapper.current.getBoundingClientRect().width * 0.66
-    }px`
-  })
+  const onChange = (isVisible: boolean) => {
+    if (!visible && isVisible) setvisible(isVisible)
+  }
+
+  const { dispatch } = useContext(Context)
 
   useEffect(() => {
     if (isHover) {
@@ -174,40 +179,43 @@ const Project = ({ project, index, opened }: Props) => {
     hid: {
       opacity: 0,
       y: -25,
+      scale: 1.1,
     },
     vis: {
       opacity: 1,
       y: 0,
+      scale: 1,
     },
   } as Variants
 
   return (
-    <AnimProject
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onClick={onClick}
-      initial="hid"
-      variants={variants}
-      animate={opened ? 'vis' : 'hid'}
-      transition={{
-        delay: opened ? index * 0.15 : 0,
-        ease: 'backInOut',
-        duration: opened ? 0.5 : 0,
-      }}
-      ref={thumbWrapper as any}
-    >
-      <ProjectItem>
-        <Image src={thumb.url} />
-        {video && (
-          <Video ref={videoRef} playsInline muted loop preload="auto" width="200" height="200">
-            <source src={video.url} type="video/mp4" />
-          </Video>
-        )}
-      </ProjectItem>
-      <Text>
-        <p>{title}</p>
-      </Text>
-    </AnimProject>
+    <VisibilitySensor active={!visible} partialVisibility onChange={onChange}>
+      <AnimProject
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onClick={onClick}
+        initial="hid"
+        variants={variants}
+        animate={visible ? 'vis' : 'hid'}
+        transition={{
+          delay: index * 0.05,
+          ease: 'backInOut',
+          duration: 0.4,
+        }}
+      >
+        <ProjectItem>
+          <Image src={thumb.url} />
+          {video && (
+            <Video ref={videoRef} playsInline muted loop preload="auto" width="200" height="200">
+              <source src={video.url} type="video/mp4" />
+            </Video>
+          )}
+        </ProjectItem>
+        <Text>
+          <p>{title}</p>
+        </Text>
+      </AnimProject>
+    </VisibilitySensor>
   )
 }
 

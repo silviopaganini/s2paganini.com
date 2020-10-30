@@ -24,6 +24,7 @@ const Loading = styled(Main)`
 type Response = {
   contents?: IContent[]
   projects?: IProject[]
+  recent?: IProject[]
   experiments?: IProject[]
   techStacks?: IStack[]
   contacts?: IContact[]
@@ -32,15 +33,7 @@ type Response = {
 type ChildProps = ChildDataProps<{}, Response, {}>
 
 const App = ({
-  data: {
-    contents,
-    projects,
-    experiments,
-    techStacks,
-    contacts,
-    loading,
-    error,
-  },
+  data: { contents, projects, recent, experiments, techStacks, contacts, loading, error },
 }: ChildProps) => {
   const {
     state: { project },
@@ -51,32 +44,23 @@ const App = ({
 
   return (
     <Main>
-      {/* {!project && <Background />} */}
-      <Body
-        data={
-          contents
-            ? contents.find((c) => c.type === 'intro')!.content
-            : undefined
-        }
+      {/* <Background /> */}
+      <Body data={contents ? contents.find(c => c.type === 'intro')!.content : undefined} />
+      <Projects
+        title="Recent Work"
+        subTitle="...get in touch for more recent work..."
+        data={recent}
       />
-      <Projects title="Experiments" data={experiments} />
       <Projects title="Featured Work" data={projects} />
+      <Projects title="Experiments" data={experiments} />
       <Stack data={techStacks} />
       <Body
         title="Awards"
-        data={
-          contents
-            ? contents.find((c) => c.type === 'awards')!.content
-            : undefined
-        }
+        data={contents ? contents.find(c => c.type === 'awards')!.content : undefined}
       />
       <Body
         title="Publications"
-        data={
-          contents
-            ? contents.find((c) => c.type === 'publications')!.content
-            : undefined
-        }
+        data={contents ? contents.find(c => c.type === 'publications')!.content : undefined}
       />
       {project && <Case />}
       <Footer data={contacts} />

@@ -20,7 +20,22 @@ const query = gql`
         mimeType
       }
     }
-    projects(orderBy: order_ASC) {
+    recent: projects(orderBy: order_ASC, where: { recent: true }) {
+      id
+      title
+      link
+      thumb {
+        id
+        url
+      }
+      video {
+        id
+        url
+        mimeType
+      }
+      body
+    }
+    projects(orderBy: order_ASC, where: { recent: false }) {
       id
       title
       link

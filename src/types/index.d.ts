@@ -33,6 +33,7 @@ export type IProject = {
 
 export type IProjects = {
   title: string
+  subTitle?: string
   data: Prop<IProject[]>
 }
 

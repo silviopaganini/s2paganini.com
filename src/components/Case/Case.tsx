@@ -16,6 +16,7 @@ const Container = styled.section`
   background: black;
   margin: 0;
   padding: 5% 10%;
+  z-index: 100000;
 `
 
 const Table = styled.table`
@@ -38,6 +39,17 @@ const Table = styled.table`
     padding: 0;
     vertical-align: baseline;
   }
+
+  td {
+    width: 100%;
+  }
+
+  ${({ theme: { breakpoint } }) => `
+    @media${breakpoint.laptop} {
+      td {
+        width : auto;
+      }
+    }`};
 `
 
 const Img = styled.img`
