@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Wrapper } from 'ui'
@@ -104,6 +104,20 @@ const Case = () => {
     dispatch,
     state: { project },
   } = useContext(Context)
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  })
 
   const onClose = () => dispatch({ type: Types.CHANGE_PROJECT, payload: { project: null } })
 
