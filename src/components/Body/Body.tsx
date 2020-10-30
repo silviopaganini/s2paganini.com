@@ -13,33 +13,31 @@ type Props = {
   title?: string
 }
 
+const options = {
+  overrides: {
+    li: {
+      component: Li,
+    },
+    ul: {
+      component: Ul,
+    },
+    a: {
+      props: {
+        target: '_blank',
+      },
+    },
+  },
+}
+
 const Body = ({ data, title }: Props) => (
   <>
     {title ? (
       <Wrapper>
         <Title>{title}</Title>
-        <Markdown
-          options={{
-            overrides: {
-              li: {
-                component: Li,
-              },
-              ul: {
-                component: Ul,
-              },
-              a: {
-                props: {
-                  target: '_blank',
-                },
-              },
-            },
-          }}
-        >
-          {data!}
-        </Markdown>
+        <Markdown options={options}>{data!}</Markdown>
       </Wrapper>
     ) : (
-      <Section>{data && <Markdown>{data}</Markdown>}</Section>
+      <Section>{data && <Markdown options={options}>{data}</Markdown>}</Section>
     )}
   </>
 )
