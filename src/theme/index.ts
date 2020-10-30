@@ -70,9 +70,13 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     overflow-x: hidden;
     color: white;
-    background-color: black;
+    /* background-color: black; */
     line-height: 1.75;
     letter-spacing: .6px;
+
+
+    background: #000;
+    background: linear-gradient(0deg, #000 0%, #111 100%);
   }
 
   ::selection {
