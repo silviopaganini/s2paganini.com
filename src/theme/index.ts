@@ -73,7 +73,7 @@ export const GlobalStyle = createGlobalStyle`
     /* background-color: black; */
     line-height: 1.75;
     letter-spacing: .6px;
-
+    min-height: 100vh;
 
     background: #000;
     background: linear-gradient(0deg, #000 0%, #111 100%);
