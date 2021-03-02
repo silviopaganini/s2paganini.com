@@ -24,10 +24,11 @@ type Props = {
   children: JSX.Element
 }
 
-export default ({ children }: Props) => {
-  //@ts-ignore
+const ContextProvider = ({ children }:Props) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch])
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>
 }
+
+export default ContextProvider

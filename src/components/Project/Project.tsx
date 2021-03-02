@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { IProject } from 'types'
-import { Context } from 'context'
-import { Types } from 'reducers'
+import { Context } from '../../context'
+import { Types } from '../../reducers'
 import { motion, Variants } from 'framer-motion'
 import VisibilitySensor from 'react-visibility-sensor'
 
@@ -148,7 +148,7 @@ type Props = {
   index: number
 }
 
-const AnimProject = motion.custom(Wrapper)
+const AnimProject = motion(Wrapper)
 
 const Project = ({ project, index }: Props) => {
   const { thumb, video, title } = project

@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import Markdown from 'markdown-to-jsx'
-import { Wrapper, Title } from 'ui'
-import { Li, Ul } from 'ui/List'
+import { Wrapper, Title } from '../../ui'
+import { Li, Ul } from '../../ui/List'
 
 const Section = styled.section`
   max-width: 800px;

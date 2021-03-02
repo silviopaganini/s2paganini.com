@@ -36,7 +36,7 @@ const App = ({
   data: { contents, projects, recent, experiments, techStacks, contacts, loading, error },
 }: ChildProps) => {
   const {
-    state: { project },
+    state: {project}
   } = useContext(Context)
 
   if (loading) return <Loading>Loading...</Loading>

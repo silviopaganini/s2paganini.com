@@ -1,4 +1,4 @@
-export default {
+const mock = {
   contents: [
     {
       content:
@@ -188,3 +188,7 @@ export default {
     },
   ],
 }
+
+
+
+export default mock

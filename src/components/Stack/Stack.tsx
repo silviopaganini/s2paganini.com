@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import Markdown from 'markdown-to-jsx'
-import Wrapper from 'ui/Wrapper'
-import Title, { SubTitle } from 'ui/Title'
+import Wrapper from '../../ui/Wrapper'
+import Title, { SubTitle } from '../../ui/Title'
 import { IStacks } from 'types'
 
 const StacksWrapper = styled.div`

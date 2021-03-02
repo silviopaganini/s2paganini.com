@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Wrapper } from 'ui'
-import { Context } from 'context'
-import { Types } from 'reducers'
 import Markdown from 'markdown-to-jsx'
+import { Wrapper } from '../../ui'
+import { Context } from '../../context'
+import { Types } from '../../reducers'
 
 const Container = styled.section`
   position: fixed;
@@ -97,7 +97,7 @@ const Span = styled.span`
   display: block;
 `
 
-const ContainerAnim = motion.custom(Container)
+const ContainerAnim = motion(Container)
 
 const Case = () => {
   const {

@@ -10,7 +10,7 @@ const size = {
   desktop: '2560px',
 }
 
-export default {
+const theme = {
   colors: {
     green: '#63FFCB',
     darkGrey: '#242424',
@@ -101,3 +101,5 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
   }
 `
+
+export default theme

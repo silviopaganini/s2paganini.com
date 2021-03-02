@@ -23,8 +23,10 @@ type ProjectPayload = {
 }
 export type ProjectActions = ActionMap<ProjectPayload>[keyof ActionMap<ProjectPayload>]
 
-const reducer = (state: StateType, action: ProjectActions) => {
-  let newState = {}
+const reducer = (state: StateType, action: ProjectActions): StateType => {
+  let newState:StateType = {
+    project: state.project
+  }
 
   switch (action.type) {
     case Types.CHANGE_PROJECT:

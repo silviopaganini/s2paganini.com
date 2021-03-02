@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Project from '../Project'
 import { IProjects } from 'types'
-import { Wrapper, Title } from 'ui'
-import { TerTitle } from 'ui/Title'
+import { Wrapper, Title } from '../../ui'
+import { TerTitle } from '../../ui/Title'
 
 const List = styled.div`
   position: relative;

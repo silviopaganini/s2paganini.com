@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { IContacts } from 'types'
-import Wrapper from 'ui/Wrapper'
+import Wrapper from '../../ui/Wrapper'
 
 const ContactWrapper = styled(Wrapper)`
   flex-direction: column;

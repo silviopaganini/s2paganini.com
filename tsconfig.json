@@ -19,10 +19,14 @@
     "isolatedModules": true,
     "sourceMap": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react-jsx",
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src/**/*"
   ],
-  "exclude": ["node_modules", "src/**/*.stories.*"]
+  "exclude": [
+    "node_modules",
+    "src/**/*.stories.*"
+  ]
 }

@@ -3,24 +3,24 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@types/jest": "26.0.10",
-    "@types/react-dom": "16.9.8",
-    "@types/styled-components": "^5.1.2",
+    "@types/jest": "26.0.20",
+    "@types/react-dom": "17.0.1",
+    "@types/styled-components": "^5.1.7",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
-    "framer-motion": "^2.9.4",
-    "graphql": "^15.3.0",
+    "framer-motion": "^3.9.1",
+    "graphql": "^15.5.0",
     "graphql-tag": "^2.11.0",
-    "markdown-to-jsx": "^7.0.1",
-    "react": "^16.13.1",
+    "markdown-to-jsx": "^7.1.1",
+    "react": "^17.0.1",
     "react-apollo": "^3.1.5",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.3",
     "react-visibility-sensor": "^5.1.1",
-    "styled-components": "^5.1.1",
-    "three": "^0.119.1",
-    "typescript": "4.0.2"
+    "styled-components": "^5.2.1",
+    "three": "^0.126.0",
+    "typescript": "4.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -29,7 +29,7 @@
     "eject": "react-scripts eject",
     "cp": "npx crcf",
     "lint": "prettier --write ./src/**/**",
-    "storybook": "start-storybook -p 9009 -s public",
+    "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
@@ -48,15 +48,19 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@storybook/addon-actions": "^6.0.16",
-    "@storybook/addon-links": "^6.0.16",
-    "@storybook/addons": "^6.0.16",
-    "@storybook/react": "^6.0.16",
+    "@babel/core": "^7.13.8",
+    "@storybook/addon-actions": "^6.1.20",
+    "@storybook/addon-essentials": "^6.1.20",
+    "@storybook/addon-links": "^6.1.20",
+    "@storybook/addons": "^6.1.20",
+    "@storybook/node-logger": "^6.1.20",
+    "@storybook/preset-create-react-app": "^3.1.6",
+    "@storybook/react": "^6.1.20",
     "@types/enzyme": "^3.10.8",
-    "@types/node": "^14.6.0",
-    "@types/react": "^16.9.46",
+    "@types/node": "^14.14.31",
+    "@types/react": "^17.0.2",
     "@types/storybook__react": "^5.2.1",
-    "create-react-component-folder": "^0.3.2"
+    "@types/three": "^0.125.3",
+    "create-react-component-folder": "^0.3.7"
   }
 }
