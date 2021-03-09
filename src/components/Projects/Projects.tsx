@@ -10,12 +10,13 @@ const List = styled.div`
   width: 100%;
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: repeat(auto-fill, 48%);
-  gap: 1vw;
+  grid-template-columns: 1fr;
+  gap: 20px;
 
   ${({ theme: { breakpoint } }) => `
     @media${breakpoint.laptop} {
       grid-template-columns: repeat(auto-fill, minmax(15%, 18%));
+      gap: 1vw;
     }`};
 `
 
