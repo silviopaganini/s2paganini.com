@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Markdown from 'markdown-to-jsx'
 import { Wrapper } from '../../ui'
 import { Context } from '../../context'
-import { Types } from '../../reducers'
 
 const Container = styled.section`
   position: fixed;
@@ -101,9 +101,10 @@ const ContainerAnim = motion(Container)
 
 const Case = () => {
   const {
-    dispatch,
     state: { project },
   } = useContext(Context)
+
+  const history = useHistory()
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -119,7 +120,9 @@ const Case = () => {
     }
   })
 
-  const onClose = () => dispatch({ type: Types.CHANGE_PROJECT, payload: { project: null } })
+  const onClose = () => {
+    history.push('/')
+  }
 
   return (
     <AnimatePresence>

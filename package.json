@@ -16,6 +16,7 @@
     "react": "^17.0.1",
     "react-apollo": "^3.1.5",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-visibility-sensor": "^5.1.1",
     "styled-components": "^5.2.1",
@@ -59,6 +60,7 @@
     "@types/enzyme": "^3.10.8",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
+    "@types/react-router-dom": "^5.1.7",
     "@types/storybook__react": "^5.2.1",
     "@types/three": "^0.125.3",
     "create-react-component-folder": "^0.3.7"

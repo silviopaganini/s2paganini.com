@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 import { IProject } from 'types'
-import { Context } from '../../context'
-import { Types } from '../../reducers'
 import { motion, Variants } from 'framer-motion'
 import VisibilitySensor from 'react-visibility-sensor'
 
@@ -42,7 +41,6 @@ const Wrapper = styled.a`
   }
 
   padding-bottom: 70%;
-
 `
 
 const DotSize = '1px'
@@ -154,14 +152,13 @@ const Project = ({ project, index }: Props) => {
   const { thumb, video, title } = project
   const [isHover, setHover] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const history = useHistory()
 
   const [visible, setvisible] = useState(false)
 
   const onChange = (isVisible: boolean) => {
     if (!visible && isVisible) setvisible(isVisible)
   }
-
-  const { dispatch } = useContext(Context)
 
   useEffect(() => {
     if (isHover) {
@@ -172,7 +169,7 @@ const Project = ({ project, index }: Props) => {
   })
 
   const onClick = () => {
-    dispatch({ type: Types.CHANGE_PROJECT, payload: { project } })
+    history.push(`/case/${project.id}`)
   }
 
   const variants = {

@@ -5,6 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { ThemeProvider } from 'styled-components'
+import { BrowserRouter as Router } from 'react-router-dom'
 import theme, { GlobalStyle } from './theme'
 import Provider from './context'
 
@@ -22,10 +23,10 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider>
       <ThemeProvider theme={theme}>
-        <>
+        <Router>
           <App />
           <GlobalStyle />
-        </>
+        </Router>
       </ThemeProvider>
     </Provider>
   </ApolloProvider>,

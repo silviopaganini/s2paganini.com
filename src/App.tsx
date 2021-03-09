@@ -1,5 +1,6 @@
-import React, { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { graphql, ChildDataProps } from 'react-apollo'
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   Projects,
@@ -11,7 +12,8 @@ import {
 } from './components'
 import { IProject, IStack, IContact, IContent } from './types'
 import query from './query'
-import { Context } from 'context'
+import { Context } from './context'
+import { Types } from './reducers'
 
 const Main = styled.main`
   padding: 0 30px 50px;
@@ -36,8 +38,30 @@ const App = ({
   data: { contents, projects, recent, experiments, techStacks, contacts, loading, error },
 }: ChildProps) => {
   const {
-    state: {project}
+    state: { project },
+    dispatch,
   } = useContext(Context)
+
+  const location = useLocation()
+
+  useEffect(() => {
+    const pagesFlat = [...(projects || []), ...(recent || []), ...(experiments || [])].reduce(
+      (acc: Record<string, any>, p: IProject) => {
+        if (p.id) {
+          acc[p.id] = p
+        }
+        return acc
+      },
+      {}
+    )
+
+    if (location.pathname.match(/\/case\//g)) {
+      const id = location.pathname.replace(/\/case\//, '')
+      dispatch({ type: Types.CHANGE_PROJECT, payload: { project: pagesFlat[id] } })
+    } else {
+      dispatch({ type: Types.CHANGE_PROJECT, payload: { project: null } })
+    }
+  }, [location, dispatch, projects, recent, experiments])
 
   if (loading) return <Loading>Loading...</Loading>
   if (error) return <Loading>{JSON.stringify(error)}</Loading>
