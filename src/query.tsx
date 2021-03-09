@@ -12,7 +12,13 @@ const query = gql`
       link
       thumb {
         id
-        url
+        url(
+          transformation: {
+            image: { resize: { width: 320, fit: clip } }
+            document: { output: { format: jpg } }
+            validateOptions: true
+          }
+        )
       }
       video {
         id
@@ -26,7 +32,13 @@ const query = gql`
       link
       thumb {
         id
-        url
+        url(
+          transformation: {
+            image: { resize: { width: 320, fit: clip } }
+            document: { output: { format: jpg } }
+            validateOptions: true
+          }
+        )
       }
       video {
         id
@@ -41,7 +53,13 @@ const query = gql`
       link
       thumb {
         id
-        url
+        url(
+          transformation: {
+            image: { resize: { width: 320, fit: clip } }
+            document: { output: { format: jpg } }
+            validateOptions: true
+          }
+        )
       }
       video {
         id
