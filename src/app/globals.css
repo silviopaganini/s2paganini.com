@@ -847,6 +847,10 @@ img {
   break-inside: avoid;
 }
 
+.pubs-body p {
+  break-after: avoid;
+}
+
 .pubs-body ul {
   list-style: none;
   padding: 0;
