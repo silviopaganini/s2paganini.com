@@ -107,10 +107,20 @@ AI Systems — Engineering Leadership — Agentic Platforms
 - Hero ID: `S2PAGANINI · BCG X · SÃO PAULO`
 - Name: `Silvio / Paganini` (DM Serif Display italic, massive)
 - Role: `Director of Software Engineering · BCG X · São Paulo`
-- Stats: 3-cell bordered grid
-  - 25 / years building
-  - 9 / countries
-  - [X] / AI systems shipped *(placeholder — Silvio fills in)*
+- Stats: 3-cell bordered grid, **rotating from a pool**
+  - 3 slots, all cycle every 4 seconds with crossfade
+  - Each slot rotates independently to its own next item (no synchronized flip)
+  - On mount, slots seed with first 3 items from pool
+  - Pool defined in `src/data/index.ts` as `heroStats: { num: string; label: string }[]`
+  - **Starter pool** (Silvio can edit/expand in data file later):
+    - `25` / `years building`
+    - `[X]` / `AI systems shipped` *(placeholder — Silvio fills in)*
+    - `9` / `countries`
+    - `∞` / `lines of code written`
+    - `16×` / `TheFWA awards`
+    - `5×` / `Cannes Lions`
+    - `100+` / `projects shipped`
+    - `25+` / `agencies & studios`
 - Scroll indicator unchanged
 - Flow field bg unchanged. Hub agents: faint cyan `rgba(0, 207, 255, alpha * 0.4)`
 
@@ -226,7 +236,9 @@ Subhead: "Things I made before the AI era."
 | File | Change |
 |------|--------|
 | `src/app/page.tsx` | Remove `ProjectGrid`, `ProjectModal` imports + usage. Add `ArchiveCTA`. |
-| `src/components/Hero.tsx` | Update eyebrow text + stat labels + placeholder number |
+| `src/components/Hero.tsx` | Update eyebrow text. Replace 4 hardcoded stats with `<HeroStats />` component. |
+| `src/components/HeroStats.tsx` | NEW — 3-slot rotating stats with crossfade, reads pool from `src/data/index.ts` |
+| `src/types/index.d.ts` | Add `IHeroStat = { num: string; label: string }` type |
 | `src/components/StackSection.tsx` | Rewrite — capability statement + proof format |
 | `src/components/ArchiveCTA.tsx` | NEW — italic CTA line + link to `/archive` |
 | `src/components/WebGLBackground.tsx` | Hub agent colour → faint cyan (already in v1 spec) |
