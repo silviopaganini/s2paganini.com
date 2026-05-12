@@ -302,7 +302,7 @@ img {
 }
 
 .hero__stats--single .hero__stat-num {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
   line-height: 1;
   font-family: var(--font-serif);
   font-style: italic;
