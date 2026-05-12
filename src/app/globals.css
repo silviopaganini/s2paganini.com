@@ -235,13 +235,8 @@ img {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.08em;
-  color: var(--text-dim);
+  color: var(--text-bright);
   margin: 0;
-  transition: opacity 300ms ease;
-}
-
-.hero__stat-text--hidden {
-  opacity: 0;
 }
 
 .hero__scroll {

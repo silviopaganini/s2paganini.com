@@ -4,7 +4,7 @@ import config from './projects.config.json'
 export const contents: IContent[] = [
   {
     content: `# Hello World
-Director of Software Engineering at [BCG X](https://bcg.com/x), São Paulo — leading AI systems engineering across LATAM. Focused on the gap between working demo and production AI system: LLM architecture, RAG pipelines, agentic workflows, and the engineering discipline that makes AI safe to ship at scale.
+Director of Software Engineering at [BCG X](https://bcg.com/x), São Paulo — leading AI systems engineering at scale. Focused on the gap between working demo and production AI system: LLM architecture, RAG pipelines, agentic workflows, and the engineering discipline that makes AI safe to ship at scale.
 
 Former founder, CTO, and Technical Director. 25 years building — from generative digital art and award-winning creative systems to enterprise platforms and agentic infrastructure. The arc runs from pixels to production.
 
