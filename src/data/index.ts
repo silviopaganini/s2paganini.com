@@ -1,4 +1,4 @@
-import { IContent, IProject, IStack, IContact, IHeroStat } from '../types'
+import { IContent, IProject, IStack, IContact } from '../types'
 import config from './projects.config.json'
 
 export const contents: IContent[] = [
@@ -949,14 +949,21 @@ export const contacts: IContact[] = [
   },
 ]
 
-export const heroStats: IHeroStat[] = [
-  { num: '25', label: 'years building' },
-  { num: '[X]', label: 'AI systems shipped' },
-  { num: '65', label: 'countries visited' },
-  { num: '10+', label: 'countries worked in' },
-  { num: '∞', label: 'lines of code written' },
-  { num: '16×', label: 'TheFWA awards' },
-  { num: '5×', label: 'Cannes Lions' },
-  { num: '100+', label: 'projects shipped' },
-  { num: '25+', label: 'agencies & studios' },
+export const heroStats: string[] = [
+  '25 years building',
+  '3× startup founder',
+  '16× TheFWA',
+  '5× Cannes Lions',
+  '5× Awwwards',
+  '3× Webby Awards',
+  '2× Lovie Awards',
+  '100+ projects shipped',
+  '25+ agencies & studios',
+  '65 countries visited',
+  '10+ countries worked in',
+  'TheFWA judge',
+  'codedoodl.es — 8 years',
+  'Guest Lecturer · Miami Ad School',
+  'Founder · CTO · Technical Director',
+  'BCG X · São Paulo',
 ]
