@@ -4,16 +4,11 @@ import config from './projects.config.json'
 export const contents: IContent[] = [
   {
     content: `# Hello World
-My name is Silvio Paganini and I [code](https://github.com/silviopaganini).
-Beyond coding, I like science, astronomy, cosmology, maths, chess (find me on [chess.com](https://www.chess.com/member/silviopaganini)), sourdough and natural fermentation, snowboard, food and travelling. One day I will disappear and be a travel blogger or a snowboarder (ok, maybe not).
+Director of Software Engineering at [BCG X](https://bcg.com/x), São Paulo — leading AI systems engineering across LATAM. Focused on the gap between working demo and production AI system: LLM architecture, RAG pipelines, agentic workflows, and the engineering discipline that makes AI safe to ship at scale.
 
-Currently Director of Software Engineering at [BCG X](https://bcg.com/x) ~~London~~ São Paulo – Brazil, leading a 200+ engineer organisation across LATAM and delivering applied AI, cloud, and product engineering for large enterprises. My current focus is the gap between "working demo" and "production AI system" — LLM architecture, RAG pipelines, agentic workflows, and the engineering discipline that makes AI systems safe to ship at scale.
+Former founder, CTO, and Technical Director. 25 years building — from generative digital art and award-winning creative systems to enterprise platforms and agentic infrastructure. The arc runs from pixels to production.
 
-Former Founder of [FLUUUID](https://fluuu.id), CTO of [blkbx.](https://www.apptension.com/case-studies/blkbx-case-study), and Technical Director of [mgxs.co](https://mgxs.co) — a generative AI venture building creative systems at the intersection of machine learning and digital art. Also curator of codedoodl.es (now sunsetted) and Guest Lecturer on the [Bootcamp de Brand Design, Strategy & Technology](https://miamiadschool.com.br/programs/bootcamp-de-brand-design-strategy-and-technology/) at Miami Ad School. I have the privilege to be part of TheFWA [Judging](https://www.thefwa.com/interview/silvio-paganini/) panel and moderator of [DevCon.London](https://devcon.network).
-
-Over the past 25 years, prior to BCG, I was lucky enough to work with the most talented people around the world at The Mill, Google Creative Lab, Huge, AllOfUs, Pigzbe.com, YOOX Net-a-Porter, Stinkdigital, Nexus Interactive Arts, Jam3, North Kingdom, UNIT9, Hi-ReS!, R/GA, Isobar Nowlab, Sapient Nitro, Blast Radius, Agency Republic, Bleed, GyroHSR, EURO RSCG, Publicis, JWT and Rapp Digital.
-
-Find me on [LinkedIn](https://www.linkedin.com/in/silviopaganini) or [GitHub](https://github.com/silviopaganini). Want to talk AI, engineering, or generative systems? [email](mailto:silvio@fluuu.id) me.`,
+Worked with [The Mill](https://themill.com), [Google Creative Lab](https://experiments.withgoogle.com/), [Huge](https://hugeinc.com), [Stinkdigital](https://stinkdigital.com), [UNIT9](https://www.unit9.com), [Jam3](https://www.jam3.com), [YOOX Net-a-Porter](https://www.ynap.com), [R/GA](https://rga.com), [North Kingdom](https://northkingdom.com), [Hi-ReS!](https://www.hi-res.net), [mgxs.co](https://mgxs.co), and others across São Paulo, London, Amsterdam, Paris, Milan, Dubai, Los Angeles and New York. Founder of [FLUUUID](https://fluuu.id), CTO of [blkbx.](https://www.apptension.com/case-studies/blkbx-case-study) — find me on [LinkedIn](https://www.linkedin.com/in/silviopaganini) or [GitHub](https://github.com/silviopaganini) — or [email](mailto:silvio@fluuu.id) me.`,
     type: 'intro',
   },
   {
