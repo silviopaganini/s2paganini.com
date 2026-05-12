@@ -1,19 +1,26 @@
 import type { Metadata } from 'next'
-import { DM_Serif_Display, IBM_Plex_Mono } from 'next/font/google'
+import { Fraunces, JetBrains_Mono, DM_Sans } from 'next/font/google'
 import './globals.css'
 
-const dmSerif = DM_Serif_Display({
+const fraunces = Fraunces({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['100', '300', '400', '500', '700', '900'],
   style: ['normal', 'italic'],
-  variable: '--font-dmserif',
+  variable: '--font-fraunces',
   display: 'swap',
 })
 
-const ibmPlexMono = IBM_Plex_Mono({
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+})
+
+const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
-  variable: '--font-ibmplex',
+  variable: '--font-dmsans',
   display: 'swap',
 })
 
@@ -46,7 +53,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${dmSerif.variable} ${ibmPlexMono.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${jetbrainsMono.variable} ${dmSans.variable}`}>
       <body>{children}</body>
     </html>
   )

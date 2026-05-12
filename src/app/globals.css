@@ -13,8 +13,9 @@
   --border:      rgba(255, 255, 255, 0.05);
   --border-med:  rgba(255, 255, 255, 0.09);
 
-  --font-mono:   var(--font-ibmplex), 'Courier New', monospace;
-  --font-serif:  var(--font-dmserif), Georgia, serif;
+  --font-mono:   var(--font-jetbrains), 'Courier New', monospace;
+  --font-serif:  var(--font-fraunces), Georgia, serif;
+  --font-sans:   var(--font-dmsans), system-ui, sans-serif;
 
   --max-w:       1260px;
   --pad-x:       clamp(20px, 5vw, 64px);
@@ -358,7 +359,7 @@ img {
 
 .about__body {
   max-width: 780px;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(17px, 1.7vw, 20px);
   line-height: 1.82;
   color: var(--text);
