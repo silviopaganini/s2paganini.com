@@ -1082,3 +1082,48 @@ img {
     columns: 1;
   }
 }
+
+/* ─── Archive CTA ─────────────────────────────────── */
+
+.archive-cta {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.archive-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.archive-cta__line {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.archive-cta__line em {
+  font-style: italic;
+}
+
+.archive-cta__link {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+  text-decoration: none;
+  border: 1px solid var(--border-med);
+  padding: 0.75rem 1.25rem;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.archive-cta__link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
