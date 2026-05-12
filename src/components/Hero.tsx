@@ -40,7 +40,7 @@ export default function Hero() {
         <p className="hero__topics">
           {TOPICS.map((t, i) => (
             <span key={t}>
-              <span className="hero__topic">{t}</span>
+              <span>{t}</span>
               {i < TOPICS.length - 1 && (
                 <span className="hero__topic-sep"> · </span>
               )}
