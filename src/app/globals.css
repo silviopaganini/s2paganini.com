@@ -146,48 +146,6 @@ img {
   z-index: 1;
 }
 
-/* Small system identifier at top of content */
-.hero__id {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  margin-bottom: 36px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  opacity: 0;
-  animation: fadeIn 0.8s var(--ease-out) 0.05s forwards;
-}
-
-.hero__id-sep {
-  color: var(--text-faint);
-  opacity: 0.4;
-}
-
-.hero__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 300;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0 10px;
-  opacity: 0;
-  animation: fadeUp 0.6s var(--ease-out) 0.15s forwards;
-}
-
-.hero__eyebrow-sep {
-  color: var(--text-faint);
-  font-style: normal;
-  opacity: 0.5;
-}
 
 .hero__name {
   font-family: var(--font-serif);
@@ -216,9 +174,9 @@ img {
   flex-wrap: wrap;
   align-items: baseline;
   gap: 6px 12px;
-  margin-bottom: clamp(36px, 5vw, 60px);
+  margin-bottom: clamp(20px, 2.5vw, 32px);
   opacity: 0;
-  animation: fadeUp 0.6s var(--ease-out) 0.7s forwards;
+  animation: fadeUp 0.6s var(--ease-out) 0.6s forwards;
 }
 
 .hero__role-title {
@@ -240,92 +198,50 @@ img {
   color: var(--text-dim);
 }
 
-.hero__stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-right: none;
+.hero__tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  color: var(--text);
+  margin: 0.75rem 0 0.75rem;
+  line-height: 1.4;
+  opacity: 0;
+  animation: fadeUp 0.6s var(--ease-out) 0.7s forwards;
+}
+
+.hero__topics {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeUp 0.6s var(--ease-out) 0.8s forwards;
+}
+
+.hero__topic-sep {
+  color: var(--border-med);
+  user-select: none;
+}
+
+.hero__stat-wrap {
   opacity: 0;
   animation: fadeUp 0.6s var(--ease-out) 0.9s forwards;
-  width: fit-content;
 }
 
-.hero__stat {
-  padding: 18px 28px;
-  border-right: 1px solid var(--border);
-  min-width: 100px;
-}
-
-.hero__stat-num {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: clamp(28px, 3.5vw, 48px);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--text-bright);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.hero__stat-label {
-  display: block;
+.hero__stat-text {
   font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
   color: var(--text-dim);
+  margin: 0;
+  transition: opacity 300ms ease;
 }
 
-.hero__stat-num,
-.hero__stat-label {
-  transition: color 200ms ease, transform 200ms ease;
-}
-
-.hero__stat-num.is-morphing {
-  color: var(--accent);
-}
-
-.hero__stat-label.is-morphing {
-  color: var(--text-bright);
-}
-
-.hero__stats--single {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.hero__stats--single .hero__stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.hero__stats--single .hero__stat-num {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  line-height: 1;
-  font-family: var(--font-serif);
-  font-style: italic;
-  color: var(--text-bright);
-  letter-spacing: -0.01em;
-}
-
-.hero__stats--single .hero__stat-label {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text);
-}
-
-.hero__stat-sub {
-  display: block;
-  font-size: 11px;
-  line-height: 1.4;
-  margin-top: 6px;
-  letter-spacing: 0.03em;
-  opacity: 0.6;
+.hero__stat-text--hidden {
+  opacity: 0;
 }
 
 .hero__scroll {
@@ -1066,10 +982,6 @@ img {
 /* ─── Responsive ──────────────────────────────────── */
 
 @media (max-width: 768px) {
-  .hero__stats {
-    flex-wrap: wrap;
-  }
-
   .modal {
     width: 100vw;
     border-left: none;
