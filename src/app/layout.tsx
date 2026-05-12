@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       'Silvio Paganini is a Director of Software Engineering at BCG X, leading applied AI, LLM systems, and enterprise engineering delivery across LATAM. 25 years of building — from creative technology to production AI.',
     url: 'https://s2paganini.com',
     siteName: 's2paganini.com',
-    images: [{ url: 'https://static.fluuu.id/share2.png' }],
+    images: [{ url: 'https://s2paganini.com/og.png', width: 1200, height: 630 }],
     type: 'website',
   },
   twitter: {
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: 'Silvio Paganini — Director of Software Engineering · Applied AI & LLM Systems',
     description:
       'Silvio Paganini is a Director of Software Engineering at BCG X, leading applied AI, LLM systems, and enterprise engineering delivery across LATAM.',
-    images: ['https://static.fluuu.id/share2.png'],
+    images: ['https://s2paganini.com/og.png'],
   },
   icons: { icon: '/favicon.ico' },
   verification: { google: 'WpukxYhyFW_25sgpg_fPkc0ZJLHgc-EGXYtuItG3C-4' },
