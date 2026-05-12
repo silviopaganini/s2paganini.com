@@ -1,7 +1,6 @@
 'use client'
 
 import Markdown from 'markdown-to-jsx'
-import { IContent } from '@/types'
 
 const AWARD_STATS = [
   { num: '16×', label: 'TheFWA' },
@@ -20,8 +19,8 @@ const pubsOptions = {
 }
 
 type Props = {
-  awards: IContent
-  publications: IContent
+  awards: string
+  publications: string
 }
 
 export default function AwardsSection({ awards, publications }: Props) {
@@ -43,7 +42,7 @@ export default function AwardsSection({ awards, publications }: Props) {
             ))}
           </div>
           <div className="pubs-body" style={{ fontSize: '13px', marginTop: 0 }}>
-            <Markdown options={pubsOptions}>{awards.content}</Markdown>
+            <Markdown options={pubsOptions}>{awards}</Markdown>
           </div>
         </div>
       </section>
@@ -56,7 +55,7 @@ export default function AwardsSection({ awards, publications }: Props) {
             <div className="section-label__line" />
           </div>
           <div className="pubs-body">
-            <Markdown options={pubsOptions}>{publications.content}</Markdown>
+            <Markdown options={pubsOptions}>{publications}</Markdown>
           </div>
         </div>
       </section>
