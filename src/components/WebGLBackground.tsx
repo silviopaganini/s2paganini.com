@@ -39,7 +39,7 @@ type AgentKind = 'signal' | 'hub' | 'pulse'
 
 interface Agent {
   x: number; y: number
-  speed: number; baseSpeed: number
+  speed: number
   age: number; maxAge: number
   kind: AgentKind
   alpha: number; width: number
@@ -47,7 +47,7 @@ interface Agent {
 
 const AGENT_COUNT  = 240
 const SCALE        = 0.0018
-const TRAIL_ALPHA  = 0.018   // slower decay = longer, more dramatic trails
+const TRAIL_ALPHA  = 0.018
 const TAU          = Math.PI * 2
 const MOUSE_RADIUS = 160
 
@@ -75,14 +75,13 @@ export default function WebGLBackground() {
     const spawnAgent = (forceX?: number, forceY?: number): Agent => {
       const r = Math.random()
       const kind: AgentKind = r < 0.06 ? 'hub' : r < 0.13 ? 'pulse' : 'signal'
-      const baseSpeed =
-        kind === 'hub'   ? 0.5  + Math.random() * 0.5
-      : kind === 'pulse' ? 3.0  + Math.random() * 2.5
-      :                    1.0  + Math.random() * 1.4
       return {
         x: forceX ?? Math.random() * W,
         y: forceY ?? Math.random() * H,
-        speed: baseSpeed, baseSpeed,
+        speed:
+          kind === 'hub'   ? 0.5  + Math.random() * 0.5
+        : kind === 'pulse' ? 3.0  + Math.random() * 2.5
+        :                    1.0  + Math.random() * 1.4,
         age: 0,
         maxAge: (600 + Math.random() * 800) * (kind === 'pulse' ? 0.28 : 1),
         kind,
@@ -105,24 +104,6 @@ export default function WebGLBackground() {
 
     let t = Math.random() * 100
     let frameId: number
-    let frame = 0
-
-    // ── Glitch state ──────────────────────────────
-    let glitching     = false
-    let glitchFrames  = 0
-    let nextGlitch    = 120 + Math.random() * 180   // frames until first glitch
-
-    const triggerGlitch = () => {
-      glitching    = true
-      glitchFrames = 8 + Math.floor(Math.random() * 14)
-      nextGlitch   = frame + 160 + Math.random() * 300
-      // spike a random subset of signals to burst speed
-      for (const a of agents) {
-        if (a.kind === 'signal' && Math.random() < 0.25) {
-          a.speed = a.baseSpeed * (4 + Math.random() * 5)
-        }
-      }
-    }
 
     const onMouseMove = (e: MouseEvent) => {
       const r = canvas.getBoundingClientRect()
@@ -138,63 +119,16 @@ export default function WebGLBackground() {
 
     const draw = () => {
       frameId = requestAnimationFrame(draw)
-      frame++
 
-      // ── Glitch trigger ────────────────────────
-      if (!glitching && frame > nextGlitch) triggerGlitch()
-
-      if (glitching) {
-        glitchFrames--
-        if (glitchFrames <= 0) {
-          glitching = false
-          // restore spiked speeds
-          for (const a of agents) a.speed = a.baseSpeed
-        }
-      }
-
-      // ── Trail fade ────────────────────────────
-      // During glitch: faster fade for sharper contrast pop
-      const trailA = glitching ? TRAIL_ALPHA * 3.5 : TRAIL_ALPHA
-      ctx.fillStyle = `rgba(6,7,9,${trailA})`
+      ctx.fillStyle = `rgba(6,7,9,${TRAIL_ALPHA})`
       ctx.fillRect(0, 0, W, H)
 
-      // ── Glitch slice artifacts ─────────────────
-      // Copy shifted horizontal strips back onto canvas — classic digital glitch
-      if (glitching && Math.random() < 0.7) {
-        const slices = 1 + Math.floor(Math.random() * 3)
-        for (let s = 0; s < slices; s++) {
-          const sy     = Math.floor(Math.random() * H)
-          const sh     = 3 + Math.floor(Math.random() * 28)
-          const shift  = (Math.random() < 0.5 ? -1 : 1) * (8 + Math.random() * 40)
-          ctx.save()
-          ctx.globalAlpha = 0.55 + Math.random() * 0.35
-          ctx.drawImage(canvas, 0, sy, W, sh, shift, sy, W, sh)
-          ctx.restore()
-        }
-      }
-
-      // ── Occasional bright scan line ───────────
-      if (glitching && Math.random() < 0.25) {
-        const ly = Math.floor(Math.random() * H)
-        ctx.save()
-        ctx.globalAlpha = 0.12 + Math.random() * 0.18
-        ctx.fillStyle = '#C8D2DC'
-        ctx.fillRect(0, ly, W, 1 + Math.floor(Math.random() * 2))
-        ctx.restore()
-      }
-
-      // ── Evolve field ──────────────────────────
-      const tSpeed = glitching ? 0.0012 : 0.00028
-      t += tSpeed
+      t += 0.00028
 
       for (const a of agents) {
         const n  = noise3d(a.x * SCALE,              a.y * SCALE,              t)
         const n2 = noise3d(a.x * SCALE * 2.4 + 40,  a.y * SCALE * 2.4 + 70,  t * 1.6) * 0.32
-        // During glitch: extra turbulence octave
-        const n3 = glitching
-          ? noise3d(a.x * SCALE * 5 + 80, a.y * SCALE * 5 + 120, t * 3) * 0.45
-          : 0
-        const angle = (n + n2 + n3) * TAU * 3.5
+        const angle = (n + n2) * TAU * 3.5
 
         let vx = Math.cos(angle) * a.speed
         let vy = Math.sin(angle) * a.speed
@@ -213,42 +147,22 @@ export default function WebGLBackground() {
 
         const life     = a.age / a.maxAge
         const envelope = Math.sin(Math.PI * Math.min(life, 1))
-        // Glitch: boost alpha on all agents for dramatic pop
-        const glitchBoost = (glitching && a.kind === 'signal') ? 1.8 : 1.0
-        const alpha    = a.alpha * envelope * glitchBoost
+        const alpha    = a.alpha * envelope
 
-        // ── Pulse: RGB-shift rendering ──────────
-        if (a.kind === 'pulse') {
-          const shift = glitching ? 3.5 : 1.5
-          // Red channel offset
-          ctx.beginPath(); ctx.moveTo(a.x - shift, a.y); ctx.lineTo(nx - shift, ny)
-          ctx.lineWidth = a.width; ctx.strokeStyle = `rgba(255,60,60,${alpha * 0.5})`
-          ctx.stroke()
-          // Blue channel offset
-          ctx.beginPath(); ctx.moveTo(a.x + shift, a.y); ctx.lineTo(nx + shift, ny)
-          ctx.strokeStyle = `rgba(60,180,255,${alpha * 0.5})`
-          ctx.stroke()
-          // Main near-white line
-          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(nx, ny)
+        ctx.beginPath()
+        ctx.moveTo(a.x, a.y)
+        ctx.lineTo(nx, ny)
+        ctx.lineWidth = a.width
+
+        if (a.kind === 'hub') {
+          ctx.strokeStyle = `rgba(86,126,160,${alpha * 0.8})`
+        } else if (a.kind === 'pulse') {
           ctx.strokeStyle = `rgba(200,210,220,${alpha})`
-          ctx.stroke()
         } else {
-          ctx.beginPath()
-          ctx.moveTo(a.x, a.y)
-          ctx.lineTo(nx, ny)
-          ctx.lineWidth = a.width
-
-          if (a.kind === 'hub') {
-            ctx.strokeStyle = `rgba(86,126,160,${alpha * 0.8})`
-          } else {
-            // Signal: briefly go cyan during glitch bursts
-            const isBursting = glitching && a.speed > a.baseSpeed * 2
-            ctx.strokeStyle = isBursting
-              ? `rgba(0,207,255,${alpha * 0.6})`
-              : `rgba(140,148,162,${alpha * 0.65})`
-          }
-          ctx.stroke()
+          ctx.strokeStyle = `rgba(140,148,162,${alpha * 0.65})`
         }
+
+        ctx.stroke()
 
         a.x = nx; a.y = ny; a.age++
 
