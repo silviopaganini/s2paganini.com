@@ -1,4 +1,4 @@
-import { IContent, IProject, IStack, IContact } from '../types'
+import { IContent, IProject, IContact } from '../types'
 import config from './projects.config.json'
 
 export const contents: IContent[] = [
@@ -896,28 +896,6 @@ Link for the experiment => [http://tensorflow.s2paganini.com](http://tensorflow.
   },
 ]
 
-export const techStacks: IStack[] = [
-  {
-    title: 'AI Systems',
-    statement: 'Production agentic platforms.',
-    stack: `LangGraph · Bedrock · Azure OpenAI · pgvector · LLM evaluation`,
-  },
-  {
-    title: 'Cloud & Platform',
-    statement: 'Cloud-native systems at enterprise scale.',
-    stack: `AWS · Azure · Terraform · Kubernetes · Observability`,
-  },
-  {
-    title: 'Systems & Architecture',
-    statement: 'Distributed systems built to last.',
-    stack: `Python · FastAPI · Event-driven · PostgreSQL · API design`,
-  },
-  {
-    title: 'Engineering Leadership',
-    statement: 'Building teams and the systems they run.',
-    stack: `Strategy · Org design · Architecture review · Mentorship`,
-  },
-]
 
 // ── Filter by projects.config.json ────────────────────
 // Set any ID to false in that file to hide it from the site.

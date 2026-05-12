@@ -27,11 +27,6 @@ export type IProject = {
   body?: string
 }
 
-export type IStack = {
-  title: string
-  statement: string
-  stack: string
-}
 
 export type IContact = {
   link: string

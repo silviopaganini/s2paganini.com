@@ -1,8 +1,7 @@
-import { contents, techStacks, contacts } from '@/data'
+import { contents, contacts } from '@/data'
 
 import Hero from '@/components/Hero'
 import About from '@/components/About'
-import StackSection from '@/components/StackSection'
 import AwardsSection from '@/components/AwardsSection'
 import ArchiveCTA from '@/components/ArchiveCTA'
 import Footer from '@/components/Footer'
@@ -16,7 +15,6 @@ export default function Page() {
     <>
       <Hero />
       <About content={intro} />
-      <StackSection stacks={techStacks} />
       <AwardsSection awards={awards} publications={publications} />
       <ArchiveCTA />
       <Footer contacts={contacts} />
