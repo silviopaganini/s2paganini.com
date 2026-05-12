@@ -32,6 +32,11 @@ export type IStack = {
   stack: string
 }
 
+export type IHeroStat = {
+  num: string
+  label: string
+}
+
 export type IContact = {
   link: string
   icon: IImage
