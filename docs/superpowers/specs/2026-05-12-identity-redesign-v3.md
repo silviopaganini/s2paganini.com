@@ -104,7 +104,7 @@ Transition: opacity fade only (300ms out, swap text, 300ms in). No scramble, no 
 TheFWA judge
 codedoodl.es — 8 years
 Guest Lecturer · Miami Ad School
-Founder · CTO · Technical Director
+Former founder · CTO · Technical Director
 BCG X · São Paulo
 ```
 
@@ -134,10 +134,10 @@ Replace with 3 short paragraphs:
 Director of Software Engineering at BCG X, São Paulo — leading AI systems engineering across LATAM. Focused on the gap between working demo and production AI system: LLM architecture, RAG pipelines, agentic workflows, and the engineering discipline that makes AI safe to ship at scale.
 
 **Paragraph 2 — the arc:**
-Former founder, CTO, and Technical Director. 25 years building — from generative digital art and award-winning creative systems to enterprise platforms and agentic infrastructure. The arc runs from pixels to production.
+Former former founder, CTO, and Technical Director. 25 years building — from generative digital art and award-winning creative systems to enterprise platforms and agentic infrastructure. The arc runs from pixels to production.
 
 **Paragraph 3 — past companies:**
-Worked with The Mill, Google Creative Lab, Huge, Stinkdigital, UNIT9, Jam3, YOOX Net-a-Porter, R/GA, North Kingdom, Hi-ReS!, and others across São Paulo, London, and New York. Founder of FLUUUID, CTO of blkbx., Technical Director of mgxs.co.
+Worked with The Mill, Google Creative Lab, Huge, Stinkdigital, UNIT9, Jam3, YOOX Net-a-Porter, R/GA, North Kingdom, Hi-ReS!, and others across São Paulo, London, and New York. Former founder of FLUUUID, CTO of blkbx., Technical Director of mgxs.co.
 
 > **Review gate:** User must approve this copy before it goes to code.
 
