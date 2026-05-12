@@ -277,6 +277,16 @@ img {
   color: var(--text-dim);
 }
 
+.hero__stat-num,
+.hero__stat-label {
+  transition: opacity 350ms ease;
+}
+
+.hero__stat-num.is-fading,
+.hero__stat-label.is-fading {
+  opacity: 0;
+}
+
 .hero__stat-sub {
   display: block;
   font-size: 11px;
