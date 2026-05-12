@@ -107,15 +107,20 @@ AI Systems — Engineering Leadership — Agentic Platforms
 - Hero ID: `S2PAGANINI · BCG X · SÃO PAULO`
 - Name: `Silvio / Paganini` (DM Serif Display italic, massive)
 - Role: `Director of Software Engineering · BCG X · São Paulo`
-- Stats: 3-cell bordered grid, **rotating from a pool**
-  - 3 slots, all cycle every 4 seconds with crossfade
-  - Each slot rotates independently to its own next item (no synchronized flip)
-  - On mount, slots seed with first 3 items from pool
+- Stats: **single stat at a time**, morphing between values from a pool
+  - 1 slot, full visual weight (larger than current stat numbers)
+  - Cycle every **5500ms** (5.5 seconds)
+  - Morph effect: **glitch scramble → settle**, total duration **900ms**
+    - First ~600ms: characters scramble (random chars + symbols flash in num + label positions)
+    - Last ~300ms: settle to the next stat
+  - Scramble uses a fixed alphabet of glyphs (uppercase letters, digits, `+`, `×`, `∞`, `/`, `·`) chosen to feel "technical / AI" without becoming illegible
+  - Length of the scrambled string at each frame matches the *target* string length, so it looks like the next value is "resolving"
   - Pool defined in `src/data/index.ts` as `heroStats: { num: string; label: string }[]`
   - **Starter pool** (Silvio can edit/expand in data file later):
     - `25` / `years building`
     - `[X]` / `AI systems shipped` *(placeholder — Silvio fills in)*
-    - `9` / `countries`
+    - `65` / `countries visited`
+    - `10+` / `countries worked in`
     - `∞` / `lines of code written`
     - `16×` / `TheFWA awards`
     - `5×` / `Cannes Lions`
