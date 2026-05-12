@@ -1,4 +1,4 @@
-import { IContent, IProject, IStack, IContact } from '../types'
+import { IContent, IProject, IStack, IContact, IHeroStat } from '../types'
 import config from './projects.config.json'
 
 export const contents: IContent[] = [
@@ -994,4 +994,15 @@ export const contacts: IContact[] = [
       url: '/assets/me.png',
     },
   },
+]
+
+export const heroStats: IHeroStat[] = [
+  { num: '25', label: 'years building' },
+  { num: '[X]', label: 'AI systems shipped' },
+  { num: '9', label: 'countries' },
+  { num: '∞', label: 'lines of code written' },
+  { num: '16×', label: 'TheFWA awards' },
+  { num: '5×', label: 'Cannes Lions' },
+  { num: '100+', label: 'projects shipped' },
+  { num: '25+', label: 'agencies & studios' },
 ]
