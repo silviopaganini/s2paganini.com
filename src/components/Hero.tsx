@@ -1,6 +1,8 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import { heroStats } from '@/data'
+import HeroStats from './HeroStats'
 
 const WebGLBackground = dynamic(() => import('./WebGLBackground'), { ssr: false })
 
@@ -21,9 +23,9 @@ export default function Hero() {
         <p className="hero__eyebrow">
           <span>AI Systems</span>
           <span className="hero__eyebrow-sep">—</span>
-          <span>Software Engineering</span>
+          <span>Engineering Leadership</span>
           <span className="hero__eyebrow-sep">—</span>
-          <span>Creative Technology</span>
+          <span>Agentic Platforms</span>
         </p>
 
         <h1 className="hero__name">
@@ -39,25 +41,7 @@ export default function Hero() {
           <span className="hero__role-loc">São Paulo, Brazil</span>
         </div>
 
-        <div className="hero__stats">
-          <div className="hero__stat">
-            <span className="hero__stat-num">25</span>
-            <span className="hero__stat-label">years of craft</span>
-          </div>
-          <div className="hero__stat">
-            <span className="hero__stat-num">200+</span>
-            <span className="hero__stat-label">engineers led</span>
-          </div>
-          <div className="hero__stat">
-            <span className="hero__stat-num">9</span>
-            <span className="hero__stat-label">countries</span>
-            <span className="hero__stat-sub">🇳🇴 🇺🇸 🇫🇷 🇮🇹 🇬🇧 🇧🇷 🇮🇩 🇹🇭 🇦🇪</span>
-          </div>
-          <div className="hero__stat">
-            <span className="hero__stat-num">5×</span>
-            <span className="hero__stat-label">Cannes Lions</span>
-          </div>
-        </div>
+        <HeroStats pool={heroStats} />
       </div>
 
       <div className="hero__scroll" aria-hidden>
