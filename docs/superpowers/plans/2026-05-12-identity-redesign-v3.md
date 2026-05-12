@@ -157,14 +157,12 @@ git commit -m "feat(fonts): swap to Fraunces + JetBrains Mono + DM Sans"
 
 In `src/types/index.d.ts`, delete the `IHeroStat` type entirely:
 
-```ts
-// DELETE this block:
-export type IHeroStat = {
-  num: string
-  label: string
-}
 ```
+# Hello World
+25 years building — from generative digital art and award-winning creative systems to enterprise platforms and agentic infrastructure. Founder of [FLUUUID](https://fluuu.id), CTO of [blkbx.](https://www.apptension.com/case-studies/blkbx-case-study), and Technical Director across studios and agencies including [The Mill](https://themill.com), [Google Creative Lab](https://experiments.withgoogle.com/), [Huge](https://hugeinc.com), [Stinkdigital](https://stinkdigital.com), [UNIT9](https://www.unit9.com), [Jam3](https://www.jam3.com), [YOOX Net-a-Porter](https://www.ynap.com), [R/GA](https://rga.com), [North Kingdom](https://northkingdom.com), [Hi-ReS!](https://www.hi-res.net), and [mgxs.co](https://mgxs.co) — across São Paulo, London, Amsterdam, Paris, Milan, Dubai, Los Angeles, and New York.
 
+Pixels to production. — [LinkedIn](https://www.linkedin.com/in/silviopaganini) · [GitHub](https://github.com/silviopaganini) · [Email](mailto:silvio@fluuu.id)
+```
 - [ ] **Step 2: Replace heroStats in data/index.ts**
 
 In `src/data/index.ts`, replace the entire `heroStats` export (currently an `IHeroStat[]` at the bottom of the file) with:
