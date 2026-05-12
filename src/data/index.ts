@@ -898,71 +898,24 @@ Link for the experiment => [http://tensorflow.s2paganini.com](http://tensorflow.
 
 export const techStacks: IStack[] = [
   {
-    title: 'AI & Machine Learning',
-    stack: `* LLM Architecture & RAG Pipelines
-* Agentic Workflows & Multi-Agent Systems
-* LangChain / LangGraph
-* OpenAI API / Azure OpenAI / Bedrock
-* Azure AI Studio
-* Hugging Face / PEFT / LoRA
-* Stable Diffusion / ComfyUI
-* MLflow / Experiment Tracking
-* Databricks
-* AWS SageMaker
-* TensorFlow / PyTorch
-* Vector Databases
-  * pgvector
-  * Pinecone
-  * Weaviate
-* Retrieval-Augmented Generation
-* Prompt Engineering & Evaluation
-* AI Systems Design & Production
-* Responsible AI / AI Safety`,
+    title: 'AI Systems',
+    statement: 'Production agentic platforms.',
+    stack: `LangGraph · Bedrock · Azure OpenAI · pgvector · LLM evaluation`,
   },
   {
-    title: 'Cloud & Infrastructure',
-    stack: `* AWS
-  * EC2, S3, Lambda, ECS/EKS
-  * API Gateway, CloudFormation
-  * Bedrock, SageMaker
-  * Route 53, CloudFront, WAF
-* Azure
-  * Azure OpenAI, AI Studio
-  * App Services, Functions
-* GCP
-* Terraform / IaC
-* Docker / Kubernetes
-* CI/CD (GitHub Actions, CircleCI)
-* DevSecOps & Compliance
-* Serverless Architecture
-* Observability & Monitoring
-* Cost Optimisation`,
+    title: 'Cloud & Platform',
+    statement: 'Cloud-native systems at enterprise scale.',
+    stack: `AWS · Azure · Terraform · Kubernetes · Observability`,
   },
   {
     title: 'Systems & Architecture',
-    stack: `* Distributed Systems Design
-* API Design (REST, GraphQL)
-* Microservices & Event-Driven
-* Python / FastAPI
-* Node.js / TypeScript
-* PostgreSQL / pgvector
-* Redis / MongoDB
-* Data Pipelines & ETL
-* System Integration
-* Performance Engineering`,
+    statement: 'Distributed systems built to last.',
+    stack: `Python · FastAPI · Event-driven · PostgreSQL · API design`,
   },
   {
     title: 'Engineering Leadership',
-    stack: `* 200+ Engineer Organisation
-* Technical Strategy & Roadmap
-* Hiring & Team Building
-* Engineering Delivery (Agile / OKRs)
-* Architecture Review & Governance
-* Stakeholder Management
-* Cross-functional Collaboration
-* Vendor & Partner Management
-* P&L Accountability
-* Mentoring & Coaching`,
+    statement: 'Building teams and the systems they run.',
+    stack: `Strategy · Org design · Architecture review · Mentorship`,
   },
 ]
 

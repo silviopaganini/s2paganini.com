@@ -29,6 +29,7 @@ export type IProject = {
 
 export type IStack = {
   title: string
+  statement: string
   stack: string
 }
 
