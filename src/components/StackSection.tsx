@@ -1,4 +1,6 @@
 // @ts-nocheck
+// Retained for reference — not imported by any route.
+// IStack removed in v3; delete when no longer needed.
 'use client'
 
 import { IStack } from '@/types'
