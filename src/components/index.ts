@@ -1,6 +1,0 @@
-export { default as Body } from './Body'
-export { default as Case } from './Case'
-export { default as Footer } from './Footer'
-export { default as Project } from './Project'
-export { default as Projects } from './Projects'
-export { default as Stack } from './Stack'

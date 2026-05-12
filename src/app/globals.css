@@ -13,8 +13,9 @@
   --border:      rgba(255, 255, 255, 0.05);
   --border-med:  rgba(255, 255, 255, 0.09);
 
-  --font-mono:   var(--font-ibmplex), 'Courier New', monospace;
-  --font-serif:  var(--font-dmserif), Georgia, serif;
+  --font-mono:   var(--font-jetbrains), 'Courier New', monospace;
+  --font-serif:  var(--font-fraunces), Georgia, serif;
+  --font-sans:   var(--font-dmsans), system-ui, sans-serif;
 
   --max-w:       1260px;
   --pad-x:       clamp(20px, 5vw, 64px);
@@ -145,48 +146,6 @@ img {
   z-index: 1;
 }
 
-/* Small system identifier at top of content */
-.hero__id {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  margin-bottom: 36px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  opacity: 0;
-  animation: fadeIn 0.8s var(--ease-out) 0.05s forwards;
-}
-
-.hero__id-sep {
-  color: var(--text-faint);
-  opacity: 0.4;
-}
-
-.hero__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 300;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0 10px;
-  opacity: 0;
-  animation: fadeUp 0.6s var(--ease-out) 0.15s forwards;
-}
-
-.hero__eyebrow-sep {
-  color: var(--text-faint);
-  font-style: normal;
-  opacity: 0.5;
-}
 
 .hero__name {
   font-family: var(--font-serif);
@@ -215,9 +174,9 @@ img {
   flex-wrap: wrap;
   align-items: baseline;
   gap: 6px 12px;
-  margin-bottom: clamp(36px, 5vw, 60px);
+  margin-bottom: clamp(20px, 2.5vw, 32px);
   opacity: 0;
-  animation: fadeUp 0.6s var(--ease-out) 0.7s forwards;
+  animation: fadeUp 0.6s var(--ease-out) 0.6s forwards;
 }
 
 .hero__role-title {
@@ -239,51 +198,45 @@ img {
   color: var(--text-dim);
 }
 
-.hero__stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-right: none;
-  opacity: 0;
-  animation: fadeUp 0.6s var(--ease-out) 0.9s forwards;
-  width: fit-content;
-}
-
-.hero__stat {
-  padding: 18px 28px;
-  border-right: 1px solid var(--border);
-  min-width: 100px;
-}
-
-.hero__stat-num {
-  display: block;
+.hero__tagline {
   font-family: var(--font-serif);
-  font-size: clamp(28px, 3.5vw, 48px);
-  font-weight: 300;
   font-style: italic;
-  color: var(--text-bright);
-  line-height: 1;
-  margin-bottom: 4px;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  color: var(--text);
+  margin: 0.75rem 0;
+  line-height: 1.4;
+  opacity: 0;
+  animation: fadeUp 0.6s var(--ease-out) 0.7s forwards;
 }
 
-.hero__stat-label {
+.hero__topics {
   display: block;
   font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
   color: var(--text-dim);
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeUp 0.6s var(--ease-out) 0.8s forwards;
 }
 
-.hero__stat-sub {
-  display: block;
-  font-size: 11px;
-  line-height: 1.4;
-  margin-top: 6px;
-  letter-spacing: 0.03em;
-  opacity: 0.6;
+.hero__topic-sep {
+  color: var(--border-med);
+  user-select: none;
+}
+
+.hero__stat-wrap {
+  opacity: 0;
+  animation: fadeUp 0.6s var(--ease-out) 0.9s forwards;
+}
+
+.hero__stat-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-bright);
+  margin: 0;
 }
 
 .hero__scroll {
@@ -317,7 +270,7 @@ img {
 
 .about__body {
   max-width: 780px;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(17px, 1.7vw, 20px);
   line-height: 1.82;
   color: var(--text);
@@ -785,6 +738,35 @@ img {
   color: var(--text-faint);
 }
 
+.stack-col__num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.stack-col--hero .stack-col__num {
+  color: var(--accent);
+}
+
+.stack-col__statement {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: var(--text-bright);
+  margin: 0.25rem 0 1rem;
+  max-width: 24ch;
+}
+
+.stack-col__proof {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
 /* ─── Awards ──────────────────────────────────────── */
 
 .awards-stats {
@@ -863,6 +845,10 @@ img {
   margin: 20px 0 8px;
   break-after: avoid;
   break-inside: avoid;
+}
+
+.pubs-body p {
+  break-after: avoid;
 }
 
 .pubs-body ul {
@@ -995,10 +981,6 @@ img {
 /* ─── Responsive ──────────────────────────────────── */
 
 @media (max-width: 768px) {
-  .hero__stats {
-    flex-wrap: wrap;
-  }
-
   .modal {
     width: 100vw;
     border-left: none;
@@ -1042,4 +1024,87 @@ img {
   .stack-col--hero .stack-col__items {
     columns: 1;
   }
+}
+
+/* ─── Archive CTA ─────────────────────────────────── */
+
+.archive-cta {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.archive-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.archive-cta__line {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.archive-cta__line em {
+  font-style: italic;
+}
+
+.archive-cta__link {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+  text-decoration: none;
+  border: 1px solid var(--border-med);
+  padding: 0.75rem 1.25rem;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.archive-cta__link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ─── Archive Header ──────────────────────────────── */
+
+.archive-header {
+  padding: 8rem 0 4rem;
+}
+
+.archive-header__back {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.archive-header__back:hover {
+  color: var(--accent);
+}
+
+.archive-header__title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(3rem, 8vw, 6rem);
+  color: var(--text-bright);
+  margin: 0 0 1rem;
+  line-height: 1;
+}
+
+.archive-header__subhead {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text);
+  margin: 0;
+  max-width: 40ch;
 }
