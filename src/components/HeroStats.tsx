@@ -1,101 +1,112 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { IHeroStat } from '@/types'
 
 type Props = {
   pool: IHeroStat[]
-  slotCount?: number
   intervalMs?: number
 }
 
-const DEFAULT_SLOTS = 3
-const DEFAULT_INTERVAL_MS = 4000
-const FADE_MS = 350
+const DEFAULT_INTERVAL_MS = 5500
+const MORPH_MS = 900
+const SCRAMBLE_MS = 600
+const FRAME_MS = 40
 
-type Slot = {
-  current: IHeroStat
-  next: IHeroStat | null
-  isFading: boolean
+const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+×∞/·'
+
+function randomGlyph(): string {
+  return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
 }
 
-function pickDifferent(pool: IHeroStat[], exclude: IHeroStat[]): IHeroStat {
-  const candidates = pool.filter(p => !exclude.includes(p))
-  const fromList = candidates.length > 0 ? candidates : pool
-  return fromList[Math.floor(Math.random() * fromList.length)]
+function scramble(target: string): string {
+  let out = ''
+  for (let i = 0; i < target.length; i++) {
+    const ch = target[i]
+    if (ch === ' ') {
+      out += ' '
+    } else {
+      out += randomGlyph()
+    }
+  }
+  return out
+}
+
+function pickNextIndex(pool: IHeroStat[], currentIdx: number): number {
+  if (pool.length <= 1) return currentIdx
+  let next = Math.floor(Math.random() * pool.length)
+  while (next === currentIdx) {
+    next = Math.floor(Math.random() * pool.length)
+  }
+  return next
 }
 
 export default function HeroStats({
   pool,
-  slotCount = DEFAULT_SLOTS,
   intervalMs = DEFAULT_INTERVAL_MS,
 }: Props) {
-  const initial: Slot[] = Array.from({ length: slotCount }, (_, i) => ({
-    current: pool[i % pool.length],
-    next: null,
-    isFading: false,
-  }))
-
-  const [slots, setSlots] = useState<Slot[]>(initial)
+  const [activeIdx, setActiveIdx] = useState(0)
+  const [displayNum, setDisplayNum] = useState(pool[0]?.num ?? '')
+  const [displayLabel, setDisplayLabel] = useState(pool[0]?.label ?? '')
+  const [isMorphing, setIsMorphing] = useState(false)
+  const morphFramesRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
-    if (pool.length <= slotCount) return
+    if (pool.length === 0) return
 
-    const timers: ReturnType<typeof setTimeout>[] = []
+    const cycleTimer = setTimeout(function cycle() {
+      const nextIdx = pickNextIndex(pool, activeIdx)
+      const target = pool[nextIdx]
 
-    const scheduleSlot = (slotIdx: number, delay: number) => {
-      const t = setTimeout(function tick() {
-        setSlots(prev => {
-          const visible = prev.map(s => s.current)
-          const next = pickDifferent(pool, visible)
-          const updated = [...prev]
-          updated[slotIdx] = { ...updated[slotIdx], next, isFading: true }
-          return updated
-        })
+      setIsMorphing(true)
 
-        const swap = setTimeout(() => {
-          setSlots(prev => {
-            const updated = [...prev]
-            const s = updated[slotIdx]
-            if (s.next) {
-              updated[slotIdx] = { current: s.next, next: null, isFading: false }
-            }
-            return updated
-          })
-        }, FADE_MS)
-        timers.push(swap)
+      // Scramble phase: rapid random glyphs
+      const start = Date.now()
+      morphFramesRef.current = setInterval(() => {
+        const elapsed = Date.now() - start
+        if (elapsed >= SCRAMBLE_MS) {
+          if (morphFramesRef.current) clearInterval(morphFramesRef.current)
+          // Settle phase: show real target
+          setDisplayNum(target.num)
+          setDisplayLabel(target.label)
+        } else {
+          setDisplayNum(scramble(target.num))
+          setDisplayLabel(scramble(target.label))
+        }
+      }, FRAME_MS)
 
-        const nextTick = setTimeout(tick, intervalMs)
-        timers.push(nextTick)
-      }, delay)
-      timers.push(t)
-    }
+      // End of full morph: commit new active index, stop morphing flag
+      const morphEnd = setTimeout(() => {
+        setActiveIdx(nextIdx)
+        setDisplayNum(target.num)
+        setDisplayLabel(target.label)
+        setIsMorphing(false)
+      }, MORPH_MS)
 
-    for (let i = 0; i < slotCount; i++) {
-      scheduleSlot(i, intervalMs + i * (intervalMs / slotCount))
-    }
+      return () => clearTimeout(morphEnd)
+    }, intervalMs)
 
     return () => {
-      timers.forEach(clearTimeout)
+      clearTimeout(cycleTimer)
+      if (morphFramesRef.current) clearInterval(morphFramesRef.current)
     }
-  }, [pool, slotCount, intervalMs])
+  }, [activeIdx, pool, intervalMs])
 
   return (
-    <div className="hero__stats">
-      {slots.map((slot, i) => (
-        <div className="hero__stat" key={i}>
-          <span
-            className={`hero__stat-num${slot.isFading ? ' is-fading' : ''}`}
-          >
-            {slot.isFading && slot.next ? slot.next.num : slot.current.num}
-          </span>
-          <span
-            className={`hero__stat-label${slot.isFading ? ' is-fading' : ''}`}
-          >
-            {slot.isFading && slot.next ? slot.next.label : slot.current.label}
-          </span>
-        </div>
-      ))}
+    <div className="hero__stats hero__stats--single">
+      <div className="hero__stat">
+        <span
+          className={`hero__stat-num${isMorphing ? ' is-morphing' : ''}`}
+          aria-live="polite"
+        >
+          {displayNum}
+        </span>
+        <span
+          className={`hero__stat-label${isMorphing ? ' is-morphing' : ''}`}
+        >
+          {displayLabel}
+        </span>
+      </div>
     </div>
   )
 }

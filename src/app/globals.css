@@ -279,12 +279,43 @@ img {
 
 .hero__stat-num,
 .hero__stat-label {
-  transition: opacity 350ms ease;
+  transition: color 200ms ease, transform 200ms ease;
 }
 
-.hero__stat-num.is-fading,
-.hero__stat-label.is-fading {
-  opacity: 0;
+.hero__stat-num.is-morphing {
+  color: var(--accent);
+}
+
+.hero__stat-label.is-morphing {
+  color: var(--text-bright);
+}
+
+.hero__stats--single {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.hero__stats--single .hero__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hero__stats--single .hero__stat-num {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-bright);
+  letter-spacing: -0.01em;
+}
+
+.hero__stats--single .hero__stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
 }
 
 .hero__stat-sub {

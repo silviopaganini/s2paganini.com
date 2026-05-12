@@ -952,7 +952,8 @@ export const contacts: IContact[] = [
 export const heroStats: IHeroStat[] = [
   { num: '25', label: 'years building' },
   { num: '[X]', label: 'AI systems shipped' },
-  { num: '9', label: 'countries' },
+  { num: '65', label: 'countries visited' },
+  { num: '10+', label: 'countries worked in' },
   { num: '∞', label: 'lines of code written' },
   { num: '16×', label: 'TheFWA awards' },
   { num: '5×', label: 'Cannes Lions' },
