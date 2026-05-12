@@ -1,4 +1,4 @@
-name: s2paganini.com | AWS Sync 
+name: s2paganini.com | AWS Sync
 
 on:
   push:
@@ -11,22 +11,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-west-2
 
       - name: Install
-        run: npm install ci
+        run: npm install --legacy-peer-deps
 
       - name: Build website
         run: npm run build
 
       - name: Deploy
-        run: aws s3 sync build ${{ secrets.AWS_BUCKET }} --exclude \"*.git/*\" --exclude \"*/node_modules/*\" --exclude \"npm-debug.log\" --exclude \"*/jspm_packages/*\" --delete
-      
+        run: aws s3 sync build ${{ secrets.AWS_BUCKET }} --exclude "*.git/*" --exclude "*/node_modules/*" --exclude "npm-debug.log" --exclude "*/jspm_packages/*" --delete
+
       - name: CF Invalidate
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CF_DISTRIBUTION }} --paths /index.html
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CF_DISTRIBUTION }} --paths "/*"
