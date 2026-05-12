@@ -131,13 +131,13 @@ Current: 5 long paragraphs (too much for a credibility landing — people don't 
 Replace with 3 short paragraphs:
 
 **Paragraph 1 — current focus:**
-Director of Software Engineering at BCG X, São Paulo — leading AI systems engineering across LATAM. Focused on the gap between working demo and production AI system: LLM architecture, RAG pipelines, agentic workflows, and the engineering discipline that makes AI safe to ship at scale.
+Director of Software Engineering at [BCG X](https://bcg.com/x), São Paulo — leading AI systems engineering at scale. Focused on the gap between working demo and production AI system: LLM architecture, RAG pipelines, agentic workflows, and the engineering discipline that makes AI safe to ship at scale.
 
 **Paragraph 2 — the arc:**
-Former former founder, CTO, and Technical Director. 25 years building — from generative digital art and award-winning creative systems to enterprise platforms and agentic infrastructure. The arc runs from pixels to production.
+Former founder, CTO, and Technical Director. 25 years building — from generative digital art and award-winning creative systems to enterprise platforms and agentic infrastructure. Former founder of [FLUUUID](https://fluuu.id), CTO of [blkbx.](https://www.apptension.com/case-studies/blkbx-case-study), and Technical Director across studios and agencies including [The Mill](https://themill.com), [Google Creative Lab](https://experiments.withgoogle.com/), [Huge](https://hugeinc.com), [Stinkdigital](https://stinkdigital.com), [UNIT9](https://www.unit9.com), [Jam3](https://www.jam3.com), [YOOX Net-a-Porter](https://www.ynap.com), [R/GA](https://rga.com), [North Kingdom](https://northkingdom.com), [Hi-ReS!](https://www.hi-res.net), and [mgxs.co](https://mgxs.co) — across São Paulo, London, Amsterdam, Paris, Milan, Dubai, Los Angeles, and New York.
 
 **Paragraph 3 — past companies:**
-Worked with The Mill, Google Creative Lab, Huge, Stinkdigital, UNIT9, Jam3, YOOX Net-a-Porter, R/GA, North Kingdom, Hi-ReS!, and others across São Paulo, London, and New York. Former founder of FLUUUID, CTO of blkbx., Technical Director of mgxs.co.
+Pixels to production. — [LinkedIn](https://www.linkedin.com/in/silviopaganini) · [GitHub](https://github.com/silviopaganini) · [Email](mailto:silvio@fluuu.id)
 
 > **Review gate:** User must approve this copy before it goes to code.
 
