@@ -4,18 +4,6 @@ import { IStack } from '@/types'
 
 type Props = { stacks: IStack[] }
 
-function parseStackItems(raw: string) {
-  const lines = raw.split('\n').filter(l => l.trim())
-  return lines.map(line => {
-    const trimmed = line.trim()
-    const isSub = line.startsWith('  ')
-    return {
-      label: trimmed.replace(/^\*\s*/, '').trim(),
-      sub: isSub,
-    }
-  })
-}
-
 export default function StackSection({ stacks }: Props) {
   return (
     <section id="stack" className="section">
@@ -31,17 +19,12 @@ export default function StackSection({ stacks }: Props) {
               key={col.title}
               className={`stack-col${idx === 0 ? ' stack-col--hero' : ''}`}
             >
+              <div className="stack-col__num">
+                {String(idx + 1).padStart(2, '0')}
+              </div>
               <div className="stack-col__title">{col.title}</div>
-              <ul className="stack-col__items">
-                {parseStackItems(col.stack).map((item, i) => (
-                  <li
-                    key={i}
-                    className={`stack-col__item${item.sub ? ' stack-col__item--sub' : ''}`}
-                  >
-                    {item.label}
-                  </li>
-                ))}
-              </ul>
+              <p className="stack-col__statement">{col.statement}</p>
+              <p className="stack-col__proof">{col.stack}</p>
             </div>
           ))}
         </div>

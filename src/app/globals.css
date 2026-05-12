@@ -785,6 +785,35 @@ img {
   color: var(--text-faint);
 }
 
+.stack-col__num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.stack-col--hero .stack-col__num {
+  color: var(--accent);
+}
+
+.stack-col__statement {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: var(--text-bright);
+  margin: 0.25rem 0 1rem;
+  max-width: 24ch;
+}
+
+.stack-col__proof {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
 /* ─── Awards ──────────────────────────────────────── */
 
 .awards-stats {
