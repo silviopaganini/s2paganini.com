@@ -770,24 +770,19 @@ img {
 /* ─── Awards ──────────────────────────────────────── */
 
 .awards-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
   margin-bottom: 64px;
-  border: 1px solid var(--border);
 }
 
 .award-stat {
-  flex: 1;
-  min-width: 120px;
   padding: 28px 24px;
   border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   text-align: left;
   transition: background 0.2s;
-}
-
-.award-stat:last-child {
-  border-right: none;
 }
 
 .award-stat:hover {
@@ -1003,12 +998,7 @@ img {
   }
 
   .awards-stats {
-    flex-wrap: wrap;
-  }
-
-  .award-stat {
-    min-width: calc(50% - 1px);
-    border-bottom: 1px solid var(--border);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -1023,6 +1013,10 @@ img {
 
   .stack-col--hero .stack-col__items {
     columns: 1;
+  }
+
+  .awards-stats {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
