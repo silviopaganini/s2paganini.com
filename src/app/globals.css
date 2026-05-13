@@ -771,7 +771,7 @@ img {
 
 .awards-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   border-top: 1px solid var(--border);
   border-left: 1px solid var(--border);
   margin-bottom: 64px;
@@ -998,11 +998,15 @@ img {
   }
 
   .awards-stats {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (max-width: 480px) {
+  .awards-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .stack-grid {
     grid-template-columns: 1fr;
   }
