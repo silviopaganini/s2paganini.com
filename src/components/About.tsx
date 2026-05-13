@@ -1,10 +1,9 @@
 'use client'
 
 import Markdown from 'markdown-to-jsx'
-import { IContent } from '@/types'
 
 type Props = {
-  content: IContent
+  content: string
 }
 
 const options = {
@@ -24,7 +23,7 @@ export default function About({ content }: Props) {
           <div className="section-label__line" />
         </div>
         <div className="about__body">
-          <Markdown options={options}>{content.content}</Markdown>
+          <Markdown options={options}>{content}</Markdown>
         </div>
       </div>
     </section>

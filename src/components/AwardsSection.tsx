@@ -1,7 +1,33 @@
 'use client'
 
+import React from 'react'
 import Markdown from 'markdown-to-jsx'
-import { IContent } from '@/types'
+
+function YearGroupWrapper({ children }: { children: React.ReactNode }) {
+  const groups: React.ReactNode[] = []
+  let group: React.ReactNode[] = []
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child) && (child.type === 'h2' || child.type === 'h3')) {
+      if (group.length > 0) {
+        groups.push(<div key={groups.length} className="pubs-year-group">{group}</div>)
+        group = []
+      }
+    }
+    group.push(child)
+  })
+  if (group.length > 0) {
+    groups.push(<div key={groups.length} className="pubs-year-group">{group}</div>)
+  }
+  return <>{groups}</>
+}
+
+const pubsOptions = {
+  overrides: {
+    a: { props: { target: '_blank', rel: 'noopener noreferrer' } },
+    wrapper: { component: YearGroupWrapper },
+  },
+}
 
 const AWARD_STATS = [
   { num: '16×', label: 'TheFWA' },
@@ -13,15 +39,9 @@ const AWARD_STATS = [
   { num: '3×', label: 'Effie' },
 ]
 
-const pubsOptions = {
-  overrides: {
-    a: { props: { target: '_blank', rel: 'noopener noreferrer' } },
-  },
-}
-
 type Props = {
-  awards: IContent
-  publications: IContent
+  awards: string
+  publications: string
 }
 
 export default function AwardsSection({ awards, publications }: Props) {
@@ -43,7 +63,7 @@ export default function AwardsSection({ awards, publications }: Props) {
             ))}
           </div>
           <div className="pubs-body" style={{ fontSize: '13px', marginTop: 0 }}>
-            <Markdown options={pubsOptions}>{awards.content}</Markdown>
+            <Markdown options={pubsOptions}>{awards}</Markdown>
           </div>
         </div>
       </section>
@@ -56,7 +76,7 @@ export default function AwardsSection({ awards, publications }: Props) {
             <div className="section-label__line" />
           </div>
           <div className="pubs-body">
-            <Markdown options={pubsOptions}>{publications.content}</Markdown>
+            <Markdown options={pubsOptions}>{publications}</Markdown>
           </div>
         </div>
       </section>
