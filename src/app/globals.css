@@ -846,6 +846,16 @@ img {
   break-after: avoid;
 }
 
+.pubs-body ul {
+  break-before: avoid;
+}
+
+.pubs-body del {
+  color: var(--text-dim);
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
 .pubs-body em {
   font-style: normal;
   color: var(--text-dim);
