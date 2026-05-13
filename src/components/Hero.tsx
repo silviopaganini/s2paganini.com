@@ -6,14 +6,6 @@ import HeroStats from './HeroStats'
 
 const WebGLBackground = dynamic(() => import('./WebGLBackground'), { ssr: false })
 
-const TOPICS = [
-  'Agentic Systems',
-  'LLM in Production',
-  'Agentic PDLC',
-  'AI at Enterprise Scale',
-  'DevSecOps for AI',
-]
-
 export default function Hero() {
   return (
     <section className="hero">
@@ -36,17 +28,6 @@ export default function Hero() {
         </div>
 
         <p className="hero__tagline">From pixels to production AI systems.</p>
-
-        <p className="hero__topics">
-          {TOPICS.map((t, i) => (
-            <span key={t}>
-              <span>{t}</span>
-              {i < TOPICS.length - 1 && (
-                <span className="hero__topic-sep"> · </span>
-              )}
-            </span>
-          ))}
-        </p>
 
         <HeroStats pool={heroStats} />
       </div>

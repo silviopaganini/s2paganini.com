@@ -1,6 +1,33 @@
 'use client'
 
+import React from 'react'
 import Markdown from 'markdown-to-jsx'
+
+function YearGroupWrapper({ children }: { children: React.ReactNode }) {
+  const groups: React.ReactNode[] = []
+  let group: React.ReactNode[] = []
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child) && (child.type === 'h2' || child.type === 'h3')) {
+      if (group.length > 0) {
+        groups.push(<div key={groups.length} className="pubs-year-group">{group}</div>)
+        group = []
+      }
+    }
+    group.push(child)
+  })
+  if (group.length > 0) {
+    groups.push(<div key={groups.length} className="pubs-year-group">{group}</div>)
+  }
+  return <>{groups}</>
+}
+
+const pubsOptions = {
+  overrides: {
+    a: { props: { target: '_blank', rel: 'noopener noreferrer' } },
+    wrapper: { component: YearGroupWrapper },
+  },
+}
 
 const AWARD_STATS = [
   { num: '16×', label: 'TheFWA' },
@@ -11,12 +38,6 @@ const AWARD_STATS = [
   { num: '3×', label: 'Webbys' },
   { num: '3×', label: 'Effie' },
 ]
-
-const pubsOptions = {
-  overrides: {
-    a: { props: { target: '_blank', rel: 'noopener noreferrer' } },
-  },
-}
 
 type Props = {
   awards: string

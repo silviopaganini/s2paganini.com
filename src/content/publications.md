@@ -24,8 +24,6 @@
 *   **FastCo Design** - ~~Codedoodl.es~~
 *   **The Wrong** - [Code Nebula](http://www.code-nebula.com/)
 *   **The FWA** - [Meet the Judges](http://www.thefwa.com/article/meet-the-fwa-judges-silvio-paganini)
-*   **Tubes WebGL Experiment** - ~~Chrome Experiments~~
-*   **Iotorama.io** - ~~The Creators Project~~
 *   **Iotorama.io** - [Prote.in](https://www.prote.in/en/feed/2015/05/a-playful-view-of-the-internet-of-things)
 *   **Iotorama Installation** - [Alpha-ville](http://www.alpha-ville.co.uk/announcing-iotorama-new-interactive-project/)
 *   **Vitasnella Projection Mapping** - [Little Black Book](http://lbbonline.com/news/how-saatchi-italy-created-the-perfect-woman-to-promote-body-positivity/)
