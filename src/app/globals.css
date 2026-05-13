@@ -846,6 +846,12 @@ img {
   break-after: avoid;
 }
 
+.pubs-body em {
+  font-style: normal;
+  color: var(--text-dim);
+  opacity: 0.5;
+}
+
 .pubs-body ul {
   list-style: none;
   padding: 0;
