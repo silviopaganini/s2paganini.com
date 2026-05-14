@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 const GLYPHS = '!<>-_\\/[]{}=+*^?#~|@$%'
 
@@ -29,53 +29,114 @@ const PRESERVE = new Set([' ', '·', '×', '—', '→', '/'])
 export default function HeroStats({ pool, intervalMs = DEFAULT_INTERVAL_MS }: Props) {
   const shuffled = useRef<string[]>(pool)
   const [display, setDisplay] = useState<Display>({ resolved: pool[0], scrambling: '' })
-  const idxRef = useRef(0)
+  const [idx, setIdx] = useState(0)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const scrambleRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const pausedRef = useRef(false)
 
   useEffect(() => {
     shuffled.current = shuffle(pool)
     setDisplay({ resolved: shuffled.current[0], scrambling: '' })
-    idxRef.current = 0
+    setIdx(0)
   }, [pool])
 
+  const startScramble = useCallback((target: string) => {
+    if (scrambleRef.current) clearInterval(scrambleRef.current)
+    let step = 0
+    scrambleRef.current = setInterval(() => {
+      const resolvedCount = Math.floor((step / SCRAMBLE_STEPS) * target.length)
+      const resolved = target.slice(0, resolvedCount)
+      const scrambling = target
+        .slice(resolvedCount)
+        .split('')
+        .map((c) => (PRESERVE.has(c) ? c : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]))
+        .join('')
+      setDisplay({ resolved, scrambling })
+      step++
+      if (step > SCRAMBLE_STEPS) {
+        clearInterval(scrambleRef.current!)
+        setDisplay({ resolved: target, scrambling: '' })
+      }
+    }, SCRAMBLE_STEP_MS)
+  }, [])
+
+  const clearTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+      timerRef.current = null
+    }
+  }, [])
+
+  const advance = useCallback(() => {
+    setIdx((prev) => {
+      const next = (prev + 1) % shuffled.current.length
+      startScramble(shuffled.current[next])
+      return next
+    })
+  }, [startScramble])
+
+  const schedule = useCallback(() => {
+    clearTimer()
+    timerRef.current = setTimeout(function loop() {
+      if (!pausedRef.current) advance()
+      timerRef.current = setTimeout(loop, intervalMs)
+    }, intervalMs)
+  }, [advance, clearTimer, intervalMs])
+
   useEffect(() => {
-    function startScramble(target: string) {
-      if (scrambleRef.current) clearInterval(scrambleRef.current)
-      let step = 0
-      scrambleRef.current = setInterval(() => {
-        const resolvedCount = Math.floor((step / SCRAMBLE_STEPS) * target.length)
-        const resolved = target.slice(0, resolvedCount)
-        const scrambling = target
-          .slice(resolvedCount)
-          .split('')
-          .map((c) => (PRESERVE.has(c) ? c : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]))
-          .join('')
-        setDisplay({ resolved, scrambling })
-        step++
-        if (step > SCRAMBLE_STEPS) {
-          clearInterval(scrambleRef.current!)
-          setDisplay({ resolved: target, scrambling: '' })
-        }
-      }, SCRAMBLE_STEP_MS)
-    }
-
-    function tick() {
-      idxRef.current = (idxRef.current + 1) % shuffled.current.length
-      startScramble(shuffled.current[idxRef.current])
-      timerRef.current = setTimeout(tick, intervalMs)
-    }
-
-    timerRef.current = setTimeout(tick, intervalMs)
+    schedule()
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current)
+      clearTimer()
       if (scrambleRef.current) clearInterval(scrambleRef.current)
     }
-  }, [pool, intervalMs])
+  }, [schedule, clearTimer])
+
+  const handleClick = () => {
+    advance()
+    schedule()
+  }
+
+  const handleEnter = () => {
+    pausedRef.current = true
+  }
+  const handleLeave = () => {
+    pausedRef.current = false
+  }
+
+  const total = pool.length
+  const countWidth = String(total).length
+  const counter = `[${String(idx + 1).padStart(countWidth, '0')} / ${total}]`
 
   return (
-    <div className="hero__stat-wrap">
-      <span className="hero__stat-label">// career.log</span>
+    <div
+      className="hero__stat-wrap"
+      onClick={handleClick}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      onFocus={handleEnter}
+      onBlur={handleLeave}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') {
+          e.preventDefault()
+          handleClick()
+        }
+      }}
+      aria-label="Next career entry"
+    >
+      <span className="hero__stat-labelrow">
+        <span
+          key={idx}
+          className="hero__stat-progress"
+          style={{ animationDuration: `${intervalMs}ms` }}
+          aria-hidden
+        />
+        <span className="hero__stat-label">// career.log</span>
+        <span className="hero__stat-counter" aria-hidden>
+          {counter}
+        </span>
+      </span>
       <p className="hero__stat-text">
         <span className="hero__stat-prompt">&gt;&nbsp;</span>
         <span className="hero__stat-resolved">{display.resolved}</span>
